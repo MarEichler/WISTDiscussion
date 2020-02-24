@@ -1,0 +1,319 @@
+---
+title: "WiDS Chicago/Evanston Data Dive"
+date: March 8, 2019
+output:
+  html_document:
+    toc: true
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+---
+# Overview
+
+Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.
+
+You will have **90 minutes** to complete the following task. 
+
+Below is a plot of number of incidents per month from 2014-2018 that the Chicago/Northern Illinois Red Cross responded to. As you can see, even ignoring seasonality, we observe a *drop* in total incidents in 2018. Our questions is simple: **Why**?
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+#time series, aggregated by month
+require(readr)
+require(dplyr)
+require(lubridate)
+require(ggplot2)
+
+red_cross<- read_rds("Redcross.rds")
+test<-red_cross %>% group_by(month=floor_date(date, "month")) %>% tally()
+
+#The motivating plot!! see the drop in 2018
+
+ggplot(test, aes(month, n)) + geom_line() + xlab("") + ylab("Monthly Incidents") + ggtitle('Chicago/Northern Illinois Red Cross Monthly Incidents, 2014-2018') +  geom_smooth(method = "loess", size = 1.5, se=FALSE)
+
+
+```
+
+**NOTE**: This is not a question that we or the Red Cross definitively know the answer to. Feel free to be as creative as time allows!
+
+Current Red Cross hypotheses include: weather, more stable economic trends, successful implementation of preparedness initiatives (including the Red Cross’s Home Fire Campaign), a reduction in fire-related crimes, or better cooking habits. Jim McGowan, our collaborater, provided a [helpful link](https://public.3.basecamp.com/p/S7RSg97Evv5wZwWpBmb12xqm) on some of these hypotheses. We do not provide datasets on these. **You can also identify other data sources!**
+
+We will give you a zip file to [download](#download) that has: 
+ 
+* Red Cross incident data (The is described more [below](#the-data)).
+* Shapefile for zip codes in Illinois (**NOTE**: you need ALL of the file types, not just the *.shp!)
+* Data by zip code from 2006-2010 American Community Survey (ACS) that includes Mean Income, Median Income, and Population for each zip code
+
+Below you'll also find:
+
+* a [data cleaning R script](#basic-cleaning)
+* an example [spatial mapping R script](#spatial-data) 
+
+## Goal
+
+**NOTE**: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further. 
+
+Your team will need to create 2-3 slides (keep it simple) with your best visualization and text takeaways and/or further inquiries. 
+
+Please email your 2 slides with the email subject: "DATA DIVE", and a list of team members' names to <als1@u.northwestern.edu> by 6:45 pm. 
+
+A winning team will be announced shortly before 9 pm. Winner gets...bragging rights and eternal WiDS-dom and fame. 
+
+
+# The Data
+
+## Codebook
+The code book will list each variable name with a description followed by the variable type in italics. If variable is categorical, each possible response will be listed.
+
+  * **date** - The date an incident report was created (*Date dd/mm/yyyy*)
+  * **incident_num** - Assigned per incident by DCSOps, the Red Cross incident management application. The first two numbers represent the fiscal year. The last four are sequential starting at the beginning of the fiscal year (July 1). Note that duplicate and invalid incidents as well as events to which the Red Cross deems a response is not needed (like a fire in a commercial or institutional building) have been removed from the dataset (*Numeric*)
+  * **incident_type** - The type of situation that lead to an incident (*Character*)
+      + Blizzard
+      + Building Collapse
+      + Explosion
+      + Fire
+      + Flood
+      + HazMat
+      + No response needed - An incident for which the local jurisdiction determines that Red Cross services are not needed
+      + Police - An incident, like a shooting or hostage situation, for which assistance is provided directly to first responders in the form of food and hydration
+      + Search and rescue 
+      + Storm
+      + Tornado
+      + Transportation -Typically, a vehicle into a residential structure or a train derailment
+      + Vacate - An incident in which a disaster has not occurred but living conditions are deemed unsafe for residents
+  * **city** - Location city of incident (*Character*)
+  * **state** - Location state of incident (*Character*)
+  * **zip** - ZIP Code of where the incident occurred. (*Numeric*)
+  * **county** - The county where the incident occurred (*Character*)
+  * **destroyed** - Number of residential units destroyed
+  * **major** - Number of residential units suffering major damage
+  * **minor** - Number of residential units suffering minor damage
+  * **affected** - Number of residential units nominally affected
+  * **injured** - Number of people injured from the incident (*Numeric*)
+  * **hospitalized** - Number of people hospitalized from the incident (*Numeric*)
+  * **desceased** - Number of people that died from incident (*Numeric*)
+  * **adults** - Number of adults in the incident (*Numeric*)
+  * **children** - Number of children in the incident (*Numeric*)
+  * **families** - Number of families in the incident (*Numeric*)
+  * **assistance** - Amount of total financial assistance provided *Numeric* 
+  * **verified** - The time and date the incident is verified by a Red Cross dispatcher (*Timestamp dd/mm/yyyy 00:00:00 AM*)
+  * **dispatched** - The time and date it is determined by a Red Cross dispatcher that a response is required (*Timestamp dd/mm/yyyy 00:00:00 AM*)
+  * **responders_ID** - The time and date a volunteer response team is identified by a Red Cross dispatcher (*Timestamp dd/mm/yyyy 00:00:00 AM*)
+  * **on_scene** - The time and date the volunteer response team arrives at an incident scene (*Timestamp dd/mm/yyyy 00:00:00 AM*)
+  * **departed** - The time and date the volunteer response team departs the incident scene (*Timestamp dd/mm/yyyy 00:00:00 AM*)
+
+
+
+
+# General Workflow Suggestions
+
+1. Form team with at least one team leader. 
+2. Review documentation and the [codebook](#codebook). 
+3. Spend about 10-15 minutes brainstorming: What things would be interesting to look at? What graphics would be useful?
+4. Break up investigative tasks. (maybe 2 people per task).
+5. Explore and implement!
+
+
+
+# Let's Get To Work... in R!
+
+## Basic Cleaning
+Below is some R code for downloading already cleaned data. It has all dates and time stamps coded to be the correct type, also changed `incident_num` to an integer without a dash.
+
+```{r download, warning=FALSE, message=FALSE, echo=FALSE}
+require(readr)
+require(naniar) #for all you R nerds, here is the a new package that is great for handling missingness
+
+download.file("https://raw.githubusercontent.com/menawhalen/WiDS_Data_Dive/master/Redcross.rds", 
+              "Redcross.rds",
+              method="curl")
+
+red_cross<- read_rds("Redcross.rds")
+
+missingness_info<-red_cross %>% miss_var_summary() #displays number and percent of NAs in each column 
+```
+
+
+Below is the code to create the cleaned rds file.
+
+```{r howtoclean, warning=FALSE, message=FALSE, eval=FALSE, echo=FALSE}
+# Libraries for reading URL and csv and cleaning 
+require(RCurl) 
+require(dplyr)
+require(janitor)
+
+# read in the text file for red cross from Github 
+red_cross_text<-getURL("https://raw.githubusercontent.com/menawhalen/WiDS_Data_Dive/master/Redcross.csv")
+
+# puts into a csv with the first row of table being the column names, seperated by ","
+red_cross<-read.csv(text = red_cross_text, header = TRUE, sep = ",") %>%
+  as_tibble() %>% # puts into a tibble
+  clean_names() %>% #makes names lowercase column names
+  # puts all the dates and time stamps in the right format for R
+  mutate(date=as.Date(date, format = "%m/%d/%Y"),
+         verified=as.POSIXct(verified, format = "%m/%d/%Y %H:%M"),
+         dispatched=as.POSIXct(dispatched, format = "%m/%d/%Y %H:%M"),
+         responders_id=as.POSIXct(responders_id, format = "%m/%d/%Y %H:%M"),
+         on_scene=as.POSIXct(on_scene, format = "%m/%d/%Y %H:%M"),
+         departed=as.POSIXct(departed, format = "%m/%d/%Y %H:%M"),
+         incident_num=as.character(incident_num),
+         incident_num=as.integer(gsub("-", "", incident_num))) # makes incident number a integer
+
+write_rds(red_cross, "Redcross.rds")
+
+```
+
+## Spatial Data 
+
+Our incident data has as a zip code variable. The below example code joins Red Cross incident data with spatial data based on zip code, and makes a map of the number of incidents in 2018. 
+
+The below code also creates a data frame (`zip_income_pop_dat`) from the ACS Community Survey (ACS) 2010 Data for income (mean, median) and population  per zip. It should be ready for you to join + map away! 
+
+There were a small percentage of incidents in Indiana and Wisconsin, but choose to focus on Illinois for mapping purposes. 
+
+```{r spatialdata, message=FALSE, warning=FALSE}
+# Illinois Zip Code Map ----------------------------------------------------
+
+# Loading packages ------------------------------------------------------------
+require(tidyverse)
+require(rgdal)
+require(maptools)
+require(rgeos)
+require(maps)
+require(mapproj)
+require(ggthemes)
+require(RCurl)
+require(lubridate)
+require(janitor)
+require(hms)
+
+
+keep_zip_codes <- read_rds("Redcross.rds") %>% 
+  as_tibble() %>% 
+  clean_names() %>%  #makes names lowercase column names
+  mutate(zip = zip %>% as.character()) %>% #we decide to make all zip codes
+  select(zip)
+
+# Forming Chicago Zip Map Tibble ------------------------------------------
+
+#Make sure all spatial data files from the zipfile are downloaded into your working directory! 
+il_map_dat <- readOGR(dsn="tl_2010_17_zcta510.shp") #read in IL zip codes shapefile 
+il_map_dat@data$id <- rownames(il_map_dat@data)
+il_points <- fortify(il_map_dat, region = "ZCTA5CE10") %>% #fortify helps us turn the map into data points in a data frame 
+  as_tibble() %>% 
+  filter(id %in% keep_zip_codes$zip)
+  
+#creating mapping dataset 
+il_map_df <- full_join(il_points, il_map_dat@data, by="id") %>% 
+  as_tibble() 
+
+#loads data with zip code, mean/median income and population
+zip_income_pop_dat <- read_csv(file = "population_income.csv") %>% 
+  clean_names() %>% #all lowercase
+  mutate(zip = zip %>% as.character()) #we choose to make the zip codes as character
+
+red_cross <- read_rds("Redcross.rds") %>% 
+  as_tibble() %>% 
+  clean_names() %>% 
+  mutate(zip = zip %>% as.character())
+
+zip_raw_count <- red_cross %>% 
+  mutate(year = year(date)) %>% 
+  group_by(zip, year) %>% 
+  summarise(incident_count = n()) %>% #counts the number of incidents in each zip code in each year
+  ungroup() %>% 
+  filter(year == 2018) %>% #we just will look at 2018
+  mutate(more_than_10 = case_when(incident_count <= 5 ~ "< 5",
+                                  incident_count <= 10 ~ "5-10",
+                                  TRUE ~ ">10")) #make discrete coloring scale
+
+
+# make the plot!
+il_map_df %>% 
+  left_join(zip_raw_count, by = c("id" = "zip")) %>% 
+  ggplot(aes(long, lat , group = group, fill = more_than_10)) + 
+    geom_polygon() +
+    geom_path(color = "black") +
+    coord_quickmap() +
+    theme_map() +  ggtitle('Incidents Per Zip Code in 2018')
+
+
+```
+
+
+
+## Time stamp Problems
+
+Some of the time stamp variables such as `verified` and  `on_scene` have errors from incorrect data entry.
+
+The two main errors were: 
+
+  * time stamps that start in the year 1900 (not in 2014-2018 )
+  * `on_scene` (Red Cross arrives at the incident) time stamps LATER than `dispatched` (Red Cross learns about incident and dispatches volunteers). This doesn't make any sense.
+
+The below code changes these erroneous time stamps to `NA`.
+
+```{r timestamp, warning=FALSE, message=FALSE, eval=T}
+require(dplyr)
+require(lubridate)
+
+# creates a new variable for the time it takes for the Red Cross to be on the scene in minutes
+red_cross$time_to_inc <- difftime(red_cross$on_scene, red_cross$verified, units = "min")
+
+# creates a new variable for the time the Red Cross is at the incident in minutes
+red_cross$time_of_inc <- difftime(red_cross$departed, red_cross$on_scene, units = "min")
+
+# creates a new data frame from the red cross that makes all the timestamp variable be after 2014 and on
+# as well as make sure that the time to and time of variable is not negative
+red_cross_time <-red_cross %>%
+  mutate(verified = if_else(verified > ymd("2013-12-31"), verified, as.POSIXct(NA)), 
+         dispatched = ifelse(dispatched > ymd("2013-12-31"), dispatched, as.POSIXct(NA)),
+         responders_id =ifelse(responders_id > ymd("2013-12-31"), responders_id, as.POSIXct(NA)),
+         on_scene = ifelse(on_scene > ymd("2013-12-31"), on_scene, as.POSIXct(NA)),
+         departed = ifelse(departed > ymd("2013-12-31"), departed, as.POSIXct(NA)),
+         time_to_inc =ifelse(time_to_inc >-1,time_to_inc, as.POSIXct(NA)),
+         time_of_inc = ifelse(time_of_inc >-1, time_of_inc, as.POSIXct(NA)))
+
+# look at the median time the Red Cross takes to get to the scene
+median(red_cross_time$time_to_inc, na.rm = T)
+
+# look at the median time the Red Cross spends at an incient
+median(red_cross_time$time_of_inc, na.rm = T)
+
+```
+
+# Post WiDS Survey
+
+Here is a [survey](https://weinberg.co1.qualtrics.com/jfe/form/SV_eajGrNBOovGB9RP) to give us some feedback on how to improve WiDS in the future. Thank you for your participation this year.
+
+
+# Results from Data Dive
+
+From Toni Stapleton looking at the drop in no response needed incidents over time.
+![The “No response needed” type incident contributed to the majority of the drop in total incidents from 2017 to 2018](ts1.png)
+
+![Overall trent in incidents follows trend of no response needed](ts2.png)
+
+From the WiDS Team: Emily Hittner, Aleksandra Sasha Shirman, Blake Shirman, Katherine Simeon, Oscar Zarate.
+First looking at incident type to find that most incidents are nonrespose and fire.
+![Incident Type](os1.png)
+
+Then looking at just fires per day.
+![Fires Daily](os2.png)
+
+Looking at a fourier transform for the dominant signal
+
+![Fourier Tansform of Fires 1](os3.png)
+![Fourier Tansform of Fires 2](os4.png)
+
+
+They then looked at county level normalized fire frequency (per 10k people as a rough estimate of county size).
+![Normalized County Level Fires](os5.png)
+
+From WiDS Team: Frank Fineis, Martha Eichlersmith, and Noelle Samia. Running a generalized linear mixed model, they could not detect meaningful difference between pre and post 01/01/2018.
+![Generalized Linear Mixed Model](cook_co_preds.png)
+
+
+#Acknowledgments
+
+We'd like to thank Jim McGowan of the Chicago/Northern Illinois Red Cross for their partnership, and Kisa Kowal, Arend Kuyper, Karen Smilowitz, and Reut Nocham for their technical/logistical support. 
+
