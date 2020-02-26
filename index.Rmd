@@ -194,17 +194,22 @@ zip_raw_count <- red_cross %>%
   filter(year == 2019) %>% #we just will look at 2019
   mutate(more_than_10 = case_when(incident_count <= 5 ~ "< 5",
                                   incident_count <= 10 ~ "5-10",
-                                  TRUE ~ ">10")) #make discrete coloring scale
+                                  TRUE ~ ">10")) #make discrete coloring scale that we don't end up using
 
 
 # make the plot!
 il_map_df %>% 
   left_join(zip_raw_count, by = c("id" = "primary_neighborhood")) %>% 
-  ggplot(aes(long, lat , group = group, fill = more_than_10)) + 
+  ggplot(aes(long, lat , group = group, fill= incident_count))
+  scale_fill_gradient(
+    name = "Incident Count", # changes legend title
+    low = "blue",
+    high = "red",
+    space = "Lab") +
     geom_polygon() +
     geom_path(color = "black") +
     coord_quickmap() +
-    theme_map() +  ggtitle('Incidents Per Chicago Neighborhood in 2019') + labs(fill ='Incident Count')
+    theme_map() +  ggtitle('Incidents Per Chicago Neighborhood in 2019') 
 
 ```
 
