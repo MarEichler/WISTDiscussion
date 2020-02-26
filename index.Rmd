@@ -1,6 +1,6 @@
 ---
 title: "WiDS Chicago/Evanston Data Dive"
-date: March 8, 2019
+date: March 5, 2020
 output:
   html_document:
     toc: true
@@ -12,36 +12,56 @@ editor_options:
 
 Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.
 
-You will have **90 minutes** to complete the following task. 
+You will have **3 Hours** to complete the following task. 
 
-Below is a plot of number of incidents per month from 2014-2018 that the Chicago/Northern Illinois Red Cross responded to. As you can see, even ignoring seasonality, we observe a *drop* in total incidents in 2018. Our questions is simple: **Why**?
+## Major Question
+
+Below is a table of number of incidents per neighborhood from 2015-2019 that the Chicago/Northern Illinois Red Cross responded to. There seems to be a few neighborhoods that have a lot of the incidents, those neighborhoods with over 150 incidents over the time period. Below is a bar chart of the neighborhoods with over 150 incidents. Our question is: **What is going on in these neighborhoods?**
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 #time series, aggregated by month
 require(readr)
 require(dplyr)
-require(lubridate)
 require(ggplot2)
+library(knitr)
+library(kableExtra)
 
 red_cross<- read_rds("Redcross.rds")
-test<-red_cross %>% group_by(month=floor_date(date, "month")) %>% tally()
-
+top_neighborhoods<-red_cross %>% 
+  group_by(primary_neighborhood) %>% 
+  tally() %>%
+  arrange(desc(n))
+top_neighborhoods %>% 
+  filter(n > 100) %>%
+  kable() %>%
+  kable_styling()
 #The motivating plot!! see the drop in 2018
+top_neighborhoods %>%
+  filter(n > 150) %>%
+  ggplot(aes(reorder(primary_neighborhood, -n), n)) +
+  geom_bar(stat = "identity") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab("Neighborhood") +
+  ggtitle("Incident Counts Per Neighborhood")
 
-ggplot(test, aes(month, n)) + geom_line() + xlab("") + ylab("Monthly Incidents") + ggtitle('Chicago/Northern Illinois Red Cross Monthly Incidents, 2014-2018') +  geom_smooth(method = "loess", size = 1.5, se=FALSE)
 
 
 ```
 
 **NOTE**: This is not a question that we or the Red Cross definitively know the answer to. Feel free to be as creative as time allows!
 
-Current Red Cross hypotheses include: weather, more stable economic trends, successful implementation of preparedness initiatives (including the Red Cross’s Home Fire Campaign), a reduction in fire-related crimes, or better cooking habits. Jim McGowan, our collaborater, provided a [helpful link](https://public.3.basecamp.com/p/S7RSg97Evv5wZwWpBmb12xqm) on some of these hypotheses. We do not provide datasets on these. **You can also identify other data sources!**
+
+## Minor Question
+With the first question looking into where these incidents are occuring, another questions the Red Cross is asking is **when these incidents are occuring?** Look at seasonality of the dataset at a monthly, weekly, and/or daily level.
 
 We will give you a zip file to [download](#download) that has: 
  
-* Red Cross incident data from 2015-2019 (The is described more [below](#the-data)).
+* Red Cross incident data (The is described more [below](#the-data)).
 * Shapefile for zip codes in Illinois (**NOTE**: you need ALL of the file types, not just the *.shp!)
 * Data by zip code from 2006-2010 American Community Survey (ACS) that includes Mean Income, Median Income, and Population for each zip code
+* Red Cross incident data (This is described more [below](#the-data)).
+* Shapefile for neighborhoods in Chicago (**NOTE**: you need ALL of the file types, not just the *.shp!)
+* Data from the City of Chicago Data Portal about building codes and violations with location.
 
 Below you'll also find:
 
@@ -119,11 +139,11 @@ The code book will list each variable name with a description followed by the va
 ## Basic Cleaning
 Below is some R code for downloading already cleaned data. It has all dates and time stamps coded to be the correct type, also changed `incident_num` to an integer without a dash.
 
-```{r download, warning=FALSE, message=FALSE, echo=FALSE}
+```{r download, warning=FALSE, message=FALSE}
 require(readr)
 require(naniar) #for all you R nerds, here is the a new package that is great for handling missingness
 
-download.file("https://raw.githubusercontent.com/menawhalen/WiDS_Data_Dive/master/Redcross.rds", 
+download.file("https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/Redcross.rds", 
               "Redcross.rds",
               method="curl")
 
@@ -135,28 +155,32 @@ missingness_info<-red_cross %>% miss_var_summary() #displays number and percent 
 
 Below is the code to create the cleaned rds file.
 
-```{r howtoclean, warning=FALSE, message=FALSE, eval=FALSE, echo=FALSE}
+```{r howtoclean, warning=FALSE, message=FALSE, eval=FALSE}
 # Libraries for reading URL and csv and cleaning 
 require(RCurl) 
 require(dplyr)
 require(janitor)
 
+
 # read in the text file for red cross from Github 
-red_cross_text<-getURL("https://raw.githubusercontent.com/menawhalen/WiDS_Data_Dive/master/Redcross.csv")
+red_cross_text<-getURL("https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/Redcross.csv")
 
 # puts into a csv with the first row of table being the column names, seperated by ","
-red_cross<-read.csv(text = red_cross_text, header = TRUE, sep = ",") %>%
+red_cross<-read.csv(text = red_cross_text, header = TRUE, sep = ",", fileEncoding = "UTF-8") %>%
   as_tibble() %>% # puts into a tibble
   clean_names() %>% #makes names lowercase column names
+  rename(date = x_u_feff_date) %>%
   # puts all the dates and time stamps in the right format for R
-  mutate(date=as.Date(date, format = "%m/%d/%Y"),
-         verified=as.POSIXct(verified, format = "%m/%d/%Y %H:%M"),
-         dispatched=as.POSIXct(dispatched, format = "%m/%d/%Y %H:%M"),
-         responders_id=as.POSIXct(responders_id, format = "%m/%d/%Y %H:%M"),
-         on_scene=as.POSIXct(on_scene, format = "%m/%d/%Y %H:%M"),
-         departed=as.POSIXct(departed, format = "%m/%d/%Y %H:%M"),
-         incident_num=as.character(incident_num),
-         incident_num=as.integer(gsub("-", "", incident_num))) # makes incident number a integer
+  mutate(date=as.Date(date, format = "%Y-%m-%d"),
+         verified=as.Date(verified, format = "%Y-%m-%d"),
+         dispatched=as.Date(dispatched, format = "%Y-%m-%d"),
+         volunteers_identified=as.Date(volunteers_identified, format = "%Y-%m-%d"),
+         on_scene=as.Date(on_scene, format = "%Y-%m-%d"),
+         off_scene=as.Date(off_scene, format = "%Y-%m-%d"),
+         incident_number=as.character(incident_number),
+         incident_number=as.integer(gsub("-", "", incident_number)),# makes incident an integer
+         primary_neighborhood = factor(tolower(primary_neighborhood)),
+         secondary_neighborhood = factor(tolower(secondary_neighborhood))) 
 
 write_rds(red_cross, "Redcross.rds")
 
@@ -170,7 +194,7 @@ The below code also creates a data frame (`zip_income_pop_dat`) from the ACS Com
 
 There were a small percentage of incidents in Indiana and Wisconsin, but choose to focus on Illinois for mapping purposes. 
 
-```{r spatialdata, message=FALSE, warning=FALSE}
+```{r spatialdata, message=FALSE, warning=FALSE, eval=FALSE}
 # Illinois Zip Code Map ----------------------------------------------------
 
 # Loading packages ------------------------------------------------------------
@@ -252,7 +276,7 @@ The two main errors were:
 
 The below code changes these erroneous time stamps to `NA`.
 
-```{r timestamp, warning=FALSE, message=FALSE, eval=T}
+```{r timestamp, warning=FALSE, message=FALSE, eval=F}
 require(dplyr)
 require(lubridate)
 
