@@ -14,9 +14,7 @@ Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois
 
 You will have **2.5 hours** to complete the following task. 
 
-## Major Question
-
-Below is a table of number of incidents per neighborhood from 2015-2019 that the Chicago/Northern Illinois Red Cross responded to. There seems to be a few neighborhoods that have a lot of the incidents, those neighborhoods with over 150 incidents over the time period are shown in the simple bar chart. Our question is: **What is going on in these neighborhoods?**
+Here are some potetial packages that might be of use in your exploratory data analysis.
 
 ```{r required-packages, message=F, warning=F}
 # Loading packages ------------------------------------------------------------
@@ -36,38 +34,6 @@ require(naniar) #for all you R nerds, here is the a new package that is great fo
 
 ```
 
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-
-red_cross<- read_rds("Redcross.rds")
-top_neighborhoods<-red_cross %>% 
-  group_by(primary_neighborhood) %>% 
-  tally() %>%
-  arrange(desc(n))
-top_neighborhoods %>% 
-  filter(n > 100) %>%
-  kable() %>%
-  kable_styling()
-
-
-top_neighborhoods %>%
-  filter(n > 150) %>%
-  ggplot(aes(reorder(primary_neighborhood, -n), n)) +
-  geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  xlab("Neighborhood") +
-  ylab("Incidents Responded to (2015-2019)") + 
-  ggtitle("Incident Counts Per Neighborhood")
-
-
-
-```
-
-**NOTE**: This is not a question that we or the Red Cross definitively know the answer to. Feel free to be as creative as time allows!
-
-
-## Minor Question
-With the first question looking into where these incidents are occuring, another questions the Red Cross is asking is **when these incidents are occuring?** Look at seasonality of the dataset at a monthly, weekly, and/or daily level.
 
 We will give you a zip file to [download](#download) that has: 
  
@@ -111,14 +77,17 @@ The code book will list each variable name with a description followed by the va
       + Tornado
       + Transportation -Typically, a vehicle into a residential structure or a train derailment
       + Vacate - An incident in which a disaster has not occurred but living conditions are deemed unsafe for residents
+  * **address** - Number and street address of incident (*Character*)
   * **city** - Location city of incident (*Character*)
   * **state** - Location state of incident (*Character*)
-  * **zip** - ZIP Code of where the incident occurred. (*Numeric*)
+  * **zip_code** - ZIP Code of where the incident occurred. (*Numeric*)
   * **county** - The county where the incident occurred (*Character*)
-  * **destroyed** - Number of residential units destroyed
-  * **major** - Number of residential units suffering major damage
-  * **minor** - Number of residential units suffering minor damage
-  * **affected** - Number of residential units nominally affected
+  * **latitude** - Latitude of incident (*Numeric*)
+  * **longitude** - Logitude of incident (*Numeric*)
+  * **destroyed** - Number of residential units destroyed (*Numeric*)
+  * **major** - Number of residential units suffering major damage (*Numeric*)
+  * **minor** - Number of residential units suffering minor damage (*Numeric*)
+  * **affected** - Number of residential units nominally affected (*Numeric*)
   * **injured** - Number of people injured from the incident (*Numeric*)
   * **hospitalized** - Number of people hospitalized from the incident (*Numeric*)
   * **desceased** - Number of people that died from incident (*Numeric*)
@@ -126,11 +95,12 @@ The code book will list each variable name with a description followed by the va
   * **children** - Number of children in the incident (*Numeric*)
   * **families** - Number of families in the incident (*Numeric*)
   * **assistance** - Amount of total financial assistance provided *Numeric* 
-  * **verified** - The time and date the incident is verified by a Red Cross dispatcher (*Timestamp dd/mm/yyyy 00:00:00 AM*)
-  * **dispatched** - The time and date it is determined by a Red Cross dispatcher that a response is required (*Timestamp dd/mm/yyyy 00:00:00 AM*)
-  * **responders_ID** - The time and date a volunteer response team is identified by a Red Cross dispatcher (*Timestamp dd/mm/yyyy 00:00:00 AM*)
-  * **on_scene** - The time and date the volunteer response team arrives at an incident scene (*Timestamp dd/mm/yyyy 00:00:00 AM*)
-  * **departed** - The time and date the volunteer response team departs the incident scene (*Timestamp dd/mm/yyyy 00:00:00 AM*)
+  * **dispatched** - The date it is determined by a Red Cross dispatcher that a response is required (*Date dd/mm/yyyy*)
+  * **volunteers_verified** - The  date the incident is verified by a Red Cross dispatcher (*Date dd/mm/yyyy*)
+  * **on_scene** - The time and date the volunteer response team arrives at an incident scene (*Date dd/mm/yyyy*)
+  * **off_scene** - The time and date the volunteer response team departs the incident scene (*Date dd/mm/yyyy*)
+  * **primary neighborhood** - The major neighborhood in which the incident occurred in. (*Character*)
+  * **secondary neighborhood** - The subsetted neighborhood within the primary neighborhood in which the incident occurred in. (*Character*)
 
 
 
@@ -182,15 +152,14 @@ write_rds(red_cross, "Redcross.rds")
 
 ## Spatial Data 
 
-Our incident data has as a zip code variable. The below example code joins Red Cross incident data with spatial data based on zip code, and makes a map of the number of incidents in 2018. 
+Our incident data has as a zip code variable. The below example code joins Red Cross incident data with spatial data based on zip code, and makes a map of the number of incidents in 2019. 
 
 The below code also creates a data frame (`zip_income_pop_dat`) from the ACS Community Survey (ACS) 2010 Data for income (mean, median) and population  per zip. It should be ready for you to join + map away! 
 
 There were a small percentage of incidents in Indiana and Wisconsin, but choose to focus on Illinois for mapping purposes. 
 
-```{r spatialdata, message=FALSE, warning=FALSE}
+```{r spatialdata, message=FALSE, warning=FALSE, results= "hide"}
 # Illinois Zip Code Map ----------------------------------------------------
-
 red_cross <- read_rds("Redcross.rds") %>% 
   as_tibble() %>% 
   clean_names()
@@ -199,7 +168,10 @@ red_cross <- read_rds("Redcross.rds") %>%
 
 #all spatial data files should be in neighborhood_shapefile directory! You need all of them!
 il_map_dat <- readOGR(dsn="neighborhood_shapefiles/Neighborhoods_2012b.shp")
-il_map_dat@data <- il_map_dat@data %>% clean_names() %>% mutate(pri_neigh= str_to_lower(pri_neigh))#read in chicago neighborhood shapefile 
+il_map_dat@data <- il_map_dat@data %>% 
+  clean_names() %>% 
+  mutate(pri_neigh= str_to_lower(pri_neigh))#read in chicago neighborhood shapefile 
+
 il_map_dat@data$id <- rownames(il_map_dat@data)
 il_points <- fortify(il_map_dat, region = "pri_neigh") %>% #fortify helps us turn the map into data points in a data frame 
   as_tibble() %>% 
@@ -209,7 +181,7 @@ il_points <- fortify(il_map_dat, region = "pri_neigh") %>% #fortify helps us tur
 il_map_df <- full_join(il_points, il_map_dat@data, by=c("id"= "pri_neigh")) %>% 
   as_tibble() 
 
-#loads data with A CRAP TON OF INFORMATION-- you should look into this!
+#loads data with A TON OF INFORMATION-- you should look into this!
 zip_income_pop_dat <- read_csv(file = "chicago_community_data.csv") %>% 
   clean_names() #all lowercase
 
@@ -234,45 +206,5 @@ il_map_df %>%
     coord_quickmap() +
     theme_map() +  ggtitle('Incidents Per Chicago Neighborhood in 2019') + labs(fill ='Incident Count')
 
-
 ```
 
-
-
-## Timestamp Problems
-
-Some of the timestamp variables such as `verified` and  `on_scene` have errors from incorrect data entry.
-
-The two main errors were: 
-
-  * time stamps that start in the year 1900 (not in 2014-2019 )
-  * `on_scene` (Red Cross arrives at the incident) time stamps LATER than `dispatched` (Red Cross learns about incident and dispatches volunteers). This doesn't make any sense.
-
-The below code changes these erroneous time stamps to `NA`.
-
-```{r timestamp, warning=FALSE, message=FALSE, eval=F}
-
-# creates a new variable for the time it takes for the Red Cross to be on the scene in minutes
-red_cross$time_to_inc <- difftime(red_cross$on_scene, red_cross$verified, units = "min")
-
-# creates a new variable for the time the Red Cross is at the incident in minutes
-red_cross$time_of_inc <- difftime(red_cross$off_scene, red_cross$on_scene, units = "min")
-
-# creates a new data frame from the red cross that makes all the timestamp variable be after 2014 and on
-# as well as make sure that the time to and time of variable is not negative
-red_cross_time <-red_cross %>%
-  mutate(verified = if_else(verified > ymd("2013-12-31"), verified, as.POSIXct(NA)), 
-         dispatched = ifelse(dispatched > ymd("2013-12-31"), dispatched, as.POSIXct(NA)),
-         responders_id =ifelse(responders_id > ymd("2013-12-31"), responders_id, as.POSIXct(NA)),
-         on_scene = ifelse(on_scene > ymd("2013-12-31"), on_scene, as.POSIXct(NA)),
-         off_scene= ifelse(off_scene > ymd("2013-12-31"), off_scene, as.POSIXct(NA)),
-         time_to_inc =ifelse(time_to_inc >-1,time_to_inc, as.POSIXct(NA)),
-         time_of_inc = ifelse(time_of_inc >-1, time_of_inc, as.POSIXct(NA)))
-
-# look at the median time the Red Cross takes to get to the scene
-median(red_cross_time$time_to_inc, na.rm = T)
-
-# look at the median time the Red Cross spends at an incient
-median(red_cross_time$time_of_inc, na.rm = T)
-
-```
