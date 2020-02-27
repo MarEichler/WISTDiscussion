@@ -234,7 +234,7 @@ il_map_df %>%
 
 This piece of code looks at latitude and longitude of 311 calls (original_file: `OLD_calls_311.csv`and finds out what neighborhood each call was made from. This updated version, with a `geometry` column, is saved as `calls_311.csv`. 
 
-```{r message=F, warning=F}
+```{r message=F, warning=F, results="hide"}
 nhood <- st_read(dsn="data/neighborhood_shapefiles/Neighborhoods_2012b.shp")
 
 calls_311 <- read_csv('data/OLD_calls_311.csv' ) %>% 
