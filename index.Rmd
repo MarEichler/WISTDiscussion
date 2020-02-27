@@ -14,6 +14,28 @@ Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois
 
 You will have **2.5 hours** to complete the following task. 
 
+
+We will give you a zip file to download that has: 
+ 
+* Red Cross incident data from 2015-2019 as `Redcross.csv`. The is described more [below](#the-data).
+
+* Shapefile,`Neighborhoods_2012b.shp`, for community areas in Chicago (**NOTE**: you need ALL of the file types to stay in that `neighborhood_shapefile/` directory, not just the *.shp!)
+* `chicago_community_data.csv`: [Community Snapshot Data](https://datahub.cmap.illinois.gov/dataset/1d2dd970-f0a6-4736-96a1-3caeb431f5e4/resource/d23fc5b1-0bb5-4bcc-bf70-688201534833/download/CDSFieldDescriptions201906.pdf) by neighborhood. This has a TON of information you can use: population, demographics, and transit information!
+* `calls_311.csv`: Data from the City of Chicago Data Portal about [311 calls](https://data.cityofchicago.org/Service-Requests/311-Service-Requests-Vacant-and-Abandoned-Building/7nii-7srd ).
+* `enviro_inspection.csv ` : Data from the City of Chicago Data Portal about [environmental inspections](https://data.cityofchicago.org/Environment-Sustainable-Development/CDPH-Environmental-Inspections/i9rk-duva). 
+* `build_vio_nhood_data.csv`: Data from the City of Chicago Data Portal about [building violations](https://data.cityofchicago.org/Buildings/Building-Violations/22u3-xenr).
+* `vacant.csv`: Data from the City of Chicago Data Portal about [vacant buildings](https://data.cityofchicago.org/Buildings/Vacant-and-Abandoned-Buildings-Violations/kc9i-wq85). Note that this does not have latitude/longitude information and therefore was not joined with neighborhood names like the above datasets.
+
+**All of these are also included in the `data/` folder, but not the `build_vio_nhood_data.csv`, as it is extremely big.** You can use as many or as few of these as you would like, and also supplement with any additional information you would like.
+
+Below you'll also find:
+
+* R script used to clean the raw Red Cross data
+* an example [spatial mapping R script](#spatial-data) 
+* an example [joining spatial data with a .csv containing neighborhood names](#example-using-latitude-and-longitude)
+
+
+
 Here are some potetial packages that might be of use in your exploratory data analysis.
 
 ```{r required-packages, message=F, warning=F}
@@ -31,27 +53,29 @@ require(janitor)
 require(hms)
 require(kableExtra)
 require(naniar) #for all you R nerds, here is the a new package that is great for handling missingness
+require(sf)
 
 ```
 
 
-We will give you a zip file to [download](#download) that has: 
- 
-* Red Cross incident data (The is described more [below](#the-data)).
-* Shapefile for community areas in Chicago (**NOTE**: you need ALL of the file types in that `neighborhood_shapefile/` directory, not just the *.shp!)
-* [Community Snapshot Data](https://datahub.cmap.illinois.gov/dataset/1d2dd970-f0a6-4736-96a1-3caeb431f5e4/resource/d23fc5b1-0bb5-4bcc-bf70-688201534833/download/CDSFieldDescriptions201906.pdf) by neighborhood. This has a TON of information you can use: population, demographics, and transit information!
-* Data from the City of Chicago Data Portal about building codes and violations with location.
+## Code to download zip file and unload into your working directory:
 
-Below you'll also find:
-
-* a [data cleaning R script](#basic-cleaning)
-* an example [spatial mapping R script](#spatial-data) 
 
 ## Goal
 
+<span style="color: red;">**Remember, the PRIMARY questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the exploratory questions**  </span>
+
+## Exploratory Questions
+
+
+
+
 **NOTE**: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further. 
 
-Your team will need to create 1 slides (keep it simple) with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at [WiDS downtown](widschicago.org) tomorrow!
+
+## Expected Deliverable
+
+Your team will need to create 1 slides (keep it simple) with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at [WiDS downtown](widschicago.org) on Friday, March 6!
 
 Please email your 1 slide with the email subject: "DATA DIVE", and a list of team members' names that will be attending WiDS: downtown to <mcwhalen@u.northwestern.edu> by 8:00 pm. 
 
@@ -110,24 +134,21 @@ The code book will list each variable name with a description followed by the va
 # Let's Get To Work... in R!
 
 ## Basic Cleaning
+
 Below is some R code for downloading already cleaned data. It has all dates and time stamps coded to be the correct type, also changed `incident_num` to an integer without a dash.
 
 ```{r download, warning=FALSE, message=FALSE}
-download.file("https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/Redcross.rds", 
-              "Redcross.rds",
-              method="curl")
 
-red_cross<- read_rds("Redcross.rds")
+red_cross<- read_csv("data/Redcross.csv")
 
 missingness_info<-red_cross %>% miss_var_summary() #displays number and percent of NAs in each column 
 ```
 
-
-Below is the code to create the cleaned rds file.
+Below is the code that was used create the cleaned rds file.
 
 ```{r howtoclean, warning=FALSE, message=FALSE,}
 # read in the text file for red cross from Github 
-red_cross_text<-getURL("https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/Redcross.csv")
+red_cross_text<-getURL("https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data/Redcross.csv")
 
 # puts into a csv with the first row of table being the column names, seperated by ","
 red_cross<-read.csv(text = red_cross_text, header = TRUE, sep = ",", fileEncoding = "UTF-8") %>%
@@ -146,28 +167,24 @@ red_cross<-read.csv(text = red_cross_text, header = TRUE, sep = ",", fileEncodin
          primary_neighborhood = factor(tolower(primary_neighborhood)),
          secondary_neighborhood = factor(tolower(secondary_neighborhood))) 
 
-write_rds(red_cross, "Redcross.rds")
+#write_rds(red_cross, "data/Redcross.rds")
 
 ```
 
 ## Spatial Data 
 
-Our incident data has as a zip code variable. The below example code joins Red Cross incident data with spatial data based on zip code, and makes a map of the number of incidents in 2019. 
-
-The below code also creates a data frame (`zip_income_pop_dat`) from the ACS Community Survey (ACS) 2010 Data for income (mean, median) and population  per zip. It should be ready for you to join + map away! 
-
-There were a small percentage of incidents in Indiana and Wisconsin, but choose to focus on Illinois for mapping purposes. 
+Our incident data has as primary and secondary neighborhood variable. The below example code joins Red Cross incident data with spatial data based on primary neighborhood, and makes a map of the number of incidents in 2019. 
 
 ```{r spatialdata, message=FALSE, warning=FALSE, results= "hide"}
 # Illinois Zip Code Map ----------------------------------------------------
-red_cross <- read_rds("Redcross.rds") %>% 
+red_cross <- read_rds("data/Redcross.rds") %>% 
   as_tibble() %>% 
   clean_names()
 
 # Forming Chicago Zip Map Tibble ------------------------------------------
 
 #all spatial data files should be in neighborhood_shapefile directory! You need all of them!
-il_map_dat <- readOGR(dsn="neighborhood_shapefiles/Neighborhoods_2012b.shp")
+il_map_dat <- readOGR(dsn="data/neighborhood_shapefiles/Neighborhoods_2012b.shp")
 il_map_dat@data <- il_map_dat@data %>% 
   clean_names() %>% 
   mutate(pri_neigh= str_to_lower(pri_neigh))#read in chicago neighborhood shapefile 
@@ -212,33 +229,23 @@ il_map_df %>%
 
 
 
-## Adding Community Area to Environment and 311 Call Data
+## Example Using Latitude and Longitude
 
-```{r}
-library(sf)
-nhood <- st_read(dsn="neighborhood_shapefiles/Neighborhoods_2012b.shp")
 
-enviro <- read_csv('enviro_inspection.csv' ) %>% 
-  drop_na(longitude)
+This piece of code looks at latitude and longitude of 311 calls (original_file: `OLD_calls_311.csv`and finds out what neighborhood each call was made from. This updated version, with a `geometry` column, is saved as `calls_311.csv`. 
 
-enviro <-  st_as_sf(enviro, coords = c("longitude", "latitude"))
+```{r message=F, warning=F}
+nhood <- st_read(dsn="data/neighborhood_shapefiles/Neighborhoods_2012b.shp")
 
-#enviro <- st_transform(enviro, "+proj=longlat  +datum=WGS84")
-nhood <- st_transform(nhood, "+proj=longlat  +datum=WGS84")
-
-st_crs(enviro) <- st_crs(nhood)
-# this shows which neighbourhoods (HEITI) intersects each school
-enviro_nhood_data <- st_join(enviro, nhood['PRI_NEIGH'], join = st_intersects)
-
-calls_311 <- read_csv('calls_311.csv' ) %>% 
+calls_311 <- read_csv('data/OLD_calls_311.csv' ) %>% 
   drop_na(longitude)
 
 calls_311 <-  st_as_sf(calls_311, coords = c("longitude", "latitude"))
 
-
 st_crs(calls_311) <- st_crs(nhood)
-# this shows which neighbourhoods (HEITI) intersects each school
+
 calls_311_nhood_data <- st_join(calls_311, nhood['PRI_NEIGH'], join = st_intersects)
 
+#write_csv(calls_311_nhood_data, 'calls_311.csv')
 
 ```
