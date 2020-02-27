@@ -57,29 +57,6 @@ require(sf)
 ```
 
 
-## Code to download zip file and load into your working directory:
-
-If you would like to download the zip file, unzip, and read in all the .csvs into R, here is code below to do that. The below code will read the .csvs into your environment.
-
-```{r}
-download.file(url = "https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip"
-              , destfile = "data_sources_WiDS.zip")
-
-# unzip the .zip file
-unzip(zipfile = "data_sources_WiDS.zip", exdir='data_from_zip')
-
-
-# list all files
-files <- list.files(path ="data_from_zip")
-
-# apply map_df() to iterate read_csv over files
-data <- map_df(paste("data_from_zip/", files, sep = "/"),
-               read_csv
-)
-```
-
-
-
 ## Goal
 
 <span style="color: red;">**Remember, the PRIMARY questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the exploratory questions**  </span>
@@ -151,6 +128,30 @@ The code book will list each variable name with a description followed by the va
 
 
 # Let's Get To Work... in R!
+
+
+## Code to download, unzip and load .csvs 
+
+If you would like to download the zip file, unzip, and read in all the .csvs into R, here is code below to do that. The below code will read the .csvs into your environment.
+
+```{r eval= F}
+download.file(url = "https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip"
+              , destfile = "data_sources_WiDS.zip")
+
+# unzip the .zip file
+unzip(zipfile = "data_sources_WiDS.zip", exdir='data_from_zip')
+
+
+# list all files
+files <- list.files(path ="data_from_zip")
+
+# apply map_df() to iterate read_csv over files
+data <- map_df(paste("data_from_zip/", files, sep = "/"),
+               read_csv
+)
+```
+
+
 
 ## Basic Cleaning
 
@@ -253,7 +254,7 @@ il_map_df %>%
 
 This piece of code looks at latitude and longitude of 311 calls (original_file: `OLD_calls_311.csv`and finds out what neighborhood each call was made from. This updated version, with a `geometry` column, is saved as `calls_311.csv`. 
 
-```{r message=F, warning=F}
+```{r message=F, warning=F, results="hide"}
 nhood <- st_read(dsn="data/neighborhood_shapefiles/Neighborhoods_2012b.shp")
 
 calls_311 <- read_csv('data/OLD_calls_311.csv' ) %>% 
