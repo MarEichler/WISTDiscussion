@@ -181,11 +181,7 @@ il_points <- fortify(il_map_dat, region = "pri_neigh") %>% #fortify helps us tur
 il_map_df <- full_join(il_points, il_map_dat@data, by=c("id"= "pri_neigh")) %>% 
   as_tibble() 
 
-#loads data with A TON OF INFORMATION-- you should look into this!
-zip_income_pop_dat <- read_csv(file = "chicago_community_data.csv") %>% 
-  clean_names() #all lowercase
-
-zip_raw_count <- red_cross %>% 
+neighborhood_raw_count <- red_cross %>% 
   mutate(year = year(date),
          primary_neighborhood = as.character(primary_neighborhood)) %>% 
   group_by(primary_neighborhood, year) %>% 
@@ -199,8 +195,8 @@ zip_raw_count <- red_cross %>%
 
 # make the plot!
 il_map_df %>% 
-  left_join(zip_raw_count, by = c("id" = "primary_neighborhood")) %>% 
-  ggplot(aes(long, lat , group = group, fill= incident_count))
+  left_join(neighborhood_raw_count, by = c("id" = "primary_neighborhood")) %>% 
+  ggplot(aes(long, lat , group = group, fill= incident_count)) +
   scale_fill_gradient(
     name = "Incident Count", # changes legend title
     low = "blue",
@@ -213,3 +209,36 @@ il_map_df %>%
 
 ```
 
+
+
+
+## Adding Community Area to Environment and 311 Call Data
+
+```{r}
+library(sf)
+nhood <- st_read(dsn="neighborhood_shapefiles/Neighborhoods_2012b.shp")
+
+enviro <- read_csv('enviro_inspection.csv' ) %>% 
+  drop_na(longitude)
+
+enviro <-  st_as_sf(enviro, coords = c("longitude", "latitude"))
+
+#enviro <- st_transform(enviro, "+proj=longlat  +datum=WGS84")
+nhood <- st_transform(nhood, "+proj=longlat  +datum=WGS84")
+
+st_crs(enviro) <- st_crs(nhood)
+# this shows which neighbourhoods (HEITI) intersects each school
+enviro_nhood_data <- st_join(enviro, nhood['PRI_NEIGH'], join = st_intersects)
+
+calls_311 <- read_csv('calls_311.csv' ) %>% 
+  drop_na(longitude)
+
+calls_311 <-  st_as_sf(calls_311, coords = c("longitude", "latitude"))
+
+
+st_crs(calls_311) <- st_crs(nhood)
+# this shows which neighbourhoods (HEITI) intersects each school
+calls_311_nhood_data <- st_join(calls_311, nhood['PRI_NEIGH'], join = st_intersects)
+
+
+```
