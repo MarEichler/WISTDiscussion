@@ -1519,7 +1519,7 @@ div.tocify {
 <h1>Overview</h1>
 <p>Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.</p>
 <p>You will have <strong>2.5 hours</strong> to complete the following task.</p>
-<p>We will give you a zip file to download that has:</p>
+<p>We will give you a <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">zip file to download</a> that has:</p>
 <ul>
 <li><p>Red Cross incident data from 2015-2019 as <code>Redcross.csv</code>. The is described more <a href="#the-data">below</a>.</p></li>
 <li><p>Shapefile,<code>Neighborhoods_2012b.shp</code>, for community areas in Chicago (<strong>NOTE</strong>: you need ALL of the file types to stay in that <code>neighborhood_shapefile/</code> directory, not just the *.shp!)</p></li>
@@ -1552,18 +1552,20 @@ require(hms)
 require(kableExtra)
 require(naniar) #for all you R nerds, here is the a new package that is great for handling missingness
 require(sf)</code></pre>
-<p>##Code to download zip file and unload into your working directory:</p>
+<div id="code-to-download-zip-file-and-unload-into-your-working-directory" class="section level2">
+<h2>Code to download zip file and unload into your working directory:</h2>
+</div>
 <div id="goal" class="section level2">
 <h2>Goal</h2>
 <p><span style="color: red;"><strong>Remember, the PRIMARY questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the exploratory questions</strong> </span></p>
-<div id="exploratory-questions" class="section level3">
-<h3>Exploratory Questions</h3>
-<p><strong>NOTE</strong>: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further.</p>
 </div>
+<div id="exploratory-questions" class="section level2">
+<h2>Exploratory Questions</h2>
+<p><strong>NOTE</strong>: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further.</p>
 </div>
 <div id="expected-deliverable" class="section level2">
 <h2>Expected Deliverable</h2>
-<p>Your team will need to create 1 slides (keep it simple) with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at <a href="widschicago.org">WiDS downtown</a> tomorrow!</p>
+<p>Your team will need to create 1 slides (keep it simple) with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at <a href="widschicago.org">WiDS downtown</a> on Friday, March 6!</p>
 <p>Please email your 1 slide with the email subject: “DATA DIVE”, and a list of team members’ names that will be attending WiDS: downtown to <a href="mailto:mcwhalen@u.northwestern.edu" class="email">mcwhalen@u.northwestern.edu</a> by 8:00 pm.</p>
 </div>
 </div>
@@ -1626,7 +1628,7 @@ require(sf)</code></pre>
 <pre class="r"><code>red_cross&lt;- read_csv(&quot;data/Redcross.csv&quot;)
 
 missingness_info&lt;-red_cross %&gt;% miss_var_summary() #displays number and percent of NAs in each column </code></pre>
-<p>Below is the code to create the cleaned rds file.</p>
+<p>Below is the code that was used create the cleaned rds file.</p>
 <pre class="r"><code># read in the text file for red cross from Github 
 red_cross_text&lt;-getURL(&quot;https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data/Redcross.csv&quot;)
 
@@ -1647,13 +1649,11 @@ red_cross&lt;-read.csv(text = red_cross_text, header = TRUE, sep = &quot;,&quot;
          primary_neighborhood = factor(tolower(primary_neighborhood)),
          secondary_neighborhood = factor(tolower(secondary_neighborhood))) 
 
-write_rds(red_cross, &quot;data/Redcross.rds&quot;)</code></pre>
+#write_rds(red_cross, &quot;data/Redcross.rds&quot;)</code></pre>
 </div>
 <div id="spatial-data" class="section level2">
 <h2>Spatial Data</h2>
-<p>Our incident data has as a zip code variable. The below example code joins Red Cross incident data with spatial data based on zip code, and makes a map of the number of incidents in 2019.</p>
-<p>The below code also creates a data frame (<code>zip_income_pop_dat</code>) from the ACS Community Survey (ACS) 2010 Data for income (mean, median) and population per zip. It should be ready for you to join + map away!</p>
-<p>There were a small percentage of incidents in Indiana and Wisconsin, but choose to focus on Illinois for mapping purposes.</p>
+<p>Our incident data has as primary and secondary neighborhood variable. The below example code joins Red Cross incident data with spatial data based on primary neighborhood, and makes a map of the number of incidents in 2019.</p>
 <pre class="r"><code># Illinois Zip Code Map ----------------------------------------------------
 red_cross &lt;- read_rds(&quot;data/Redcross.rds&quot;) %&gt;% 
   as_tibble() %&gt;% 
