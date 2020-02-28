@@ -14,7 +14,7 @@ Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois
 
 You will have **2.5 hours** to answer the primary question at the event. 
 
-We will give you a zip file to download <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">HERE</a> that has: 
+We will give you a zip file to **download** <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">HERE</a> that has: 
  
 * Red Cross incident data from 2015-2019 as `Redcross.csv`. The is described more [below](#the-data).
 
@@ -25,7 +25,7 @@ We will give you a zip file to download <a id="raw-url" href="https://raw.github
 * `build_vio_nhood_data.csv`: Data from the City of Chicago Data Portal about [building violations](https://data.cityofchicago.org/Buildings/Building-Violations/22u3-xenr).
 * `vacant.csv`: Data from the City of Chicago Data Portal about [vacant buildings](https://data.cityofchicago.org/Buildings/Vacant-and-Abandoned-Buildings-Violations/kc9i-wq85). Note that this does not have latitude/longitude information and therefore was not joined with neighborhood names like the above datasets.
 
-**All of these are also included in the `data/` folder, but not the `build_vio_nhood_data.csv`, as it is extremely big.** You can use as many or as few of these as you would like, and also supplement with any additional information you would like.
+**If you simply clone the resposirory on your local machine: all of these are also included in the `data/` folder, but not the `build_vio_nhood_data.csv`, as it is extremely big.** You can use as many or as few of these as you would like, and also supplement with any additional information you can find and cite.
 
 Below you'll also find:
 
@@ -34,8 +34,7 @@ Below you'll also find:
 * an example [joining spatial data with a .csv containing neighborhood names](#example-using-latitude-and-longitude)
 
 
-
-Here are some potetial packages that might be of use in your exploratory data analysis.
+Here are some potential packages that might be of use in your exploratory data analysis.
 
 ```{r required-packages, message=F, warning=F}
 # Loading packages ------------------------------------------------------------
@@ -59,12 +58,14 @@ require(sf)
 
 ## Goal
 
-<span style="color: red;">**Remember, the PRIMARY questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the exploratory questions**  </span>
+<span style="color: red;">**Remember, the PRIMARY and more substantial questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the [exploratory questions](#exploratory-questions).**  </span>
 
 ## Exploratory Questions
 
-
-
+* Are fires the most common incident? What other incidents happen within Chicago? 
+* How often is the Red Cross responding to incidents? How do these patterns change over time? Do you see evidence for a spatial pattern?
+* How much financial assistance is given each day? How do these patterns change over time? Do you see evidence for a spatial pattern?
+* What variables and datasets appear to be most useful or interesting among the supplemental information?
 
 **NOTE**: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further. 
 
@@ -77,6 +78,13 @@ Please email your 1 slide with the email subject: "DATA DIVE", and a list of tea
 
 
 # The Data
+
+The Red Cross of Greater Chicago/Illinois responds to disaster incidents throughout Illinois and provides assistance to those who are affected by those disasters.
+
+The dataset provided by the Red Cross has each row as an incident with the different columns as variables for that incident. The Red Cross mostly responds to fires disasters and a bulk of the disasters happening the city of Chicago, the data provided is only from Chicago. 
+
+The [US Fire Administration](https://www.usfa.fema.gov/data/statistics/) has collected data on fires from a variety of sources. While these are national estimates and do not adequately represent Chicago-specific fires, it can further our nderstanding on fire disasters. Data is given about buildings in Chicago as a possible way to look at they why/how these disasters, primarily fires, are occurring. We provide data on building codes violations, environmental factors, vacant buildings, and 311 calls data to aid with exploratory analysis. 
+
 
 ## Codebook
 The code book will list each variable name with a description followed by the variable type in italics. If variable is categorical, each possible response will be listed.
@@ -114,7 +122,7 @@ The code book will list each variable name with a description followed by the va
   * **adults** - Number of adults in the incident (*Numeric*)
   * **children** - Number of children in the incident (*Numeric*)
   * **families** - Number of families in the incident (*Numeric*)
-  * **assistance** - Amount of total financial assistance provided *Numeric* 
+  * **assistance** - Amount of total financial assistance provided (*Numeric*)
   * **dispatched** - The date it is determined by a Red Cross dispatcher that a response is required (*Date dd/mm/yyyy*)
   * **volunteers_verified** - The  date the incident is verified by a Red Cross dispatcher (*Date dd/mm/yyyy*)
   * **on_scene** - The time and date the volunteer response team arrives at an incident scene (*Date dd/mm/yyyy*)
@@ -139,7 +147,7 @@ download.file(url = "https://raw.githubusercontent.com/menawhalen/WiDS_data_dive
               , destfile = "data_sources_WiDS.zip")
 
 # unzip the .zip file
-unzip(zipfile = "data_sources_WiDS.zip", exdir='data_from_zip')
+unzip(zipfile = "data_sources_WiDS.zip", exdir='data_from_zip') 
 
 
 # list all files

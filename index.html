@@ -1519,7 +1519,7 @@ div.tocify {
 <h1>Overview</h1>
 <p>Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.</p>
 <p>You will have <strong>2.5 hours</strong> to answer the primary question at the event.</p>
-<p>We will give you a zip file to download <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">HERE</a> that has:</p>
+<p>We will give you a zip file to <strong>download</strong> <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">HERE</a> that has:</p>
 <ul>
 <li><p>Red Cross incident data from 2015-2019 as <code>Redcross.csv</code>. The is described more <a href="#the-data">below</a>.</p></li>
 <li><p>Shapefile,<code>Neighborhoods_2012b.shp</code>, for community areas in Chicago (<strong>NOTE</strong>: you need ALL of the file types to stay in that <code>neighborhood_shapefile/</code> directory, not just the *.shp!)</p></li>
@@ -1529,14 +1529,14 @@ div.tocify {
 <li><p><code>build_vio_nhood_data.csv</code>: Data from the City of Chicago Data Portal about <a href="https://data.cityofchicago.org/Buildings/Building-Violations/22u3-xenr">building violations</a>.</p></li>
 <li><p><code>vacant.csv</code>: Data from the City of Chicago Data Portal about <a href="https://data.cityofchicago.org/Buildings/Vacant-and-Abandoned-Buildings-Violations/kc9i-wq85">vacant buildings</a>. Note that this does not have latitude/longitude information and therefore was not joined with neighborhood names like the above datasets.</p></li>
 </ul>
-<p><strong>All of these are also included in the <code>data/</code> folder, but not the <code>build_vio_nhood_data.csv</code>, as it is extremely big.</strong> You can use as many or as few of these as you would like, and also supplement with any additional information you would like.</p>
+<p><strong>If you simply clone the resposirory on your local machine: all of these are also included in the <code>data/</code> folder, but not the <code>build_vio_nhood_data.csv</code>, as it is extremely big.</strong> You can use as many or as few of these as you would like, and also supplement with any additional information you can find and cite.</p>
 <p>Below you’ll also find:</p>
 <ul>
 <li>R script used to clean the raw Red Cross data</li>
 <li>an example <a href="#spatial-data">spatial mapping R script</a></li>
 <li>an example <a href="#example-using-latitude-and-longitude">joining spatial data with a .csv containing neighborhood names</a></li>
 </ul>
-<p>Here are some potetial packages that might be of use in your exploratory data analysis.</p>
+<p>Here are some potential packages that might be of use in your exploratory data analysis.</p>
 <pre class="r"><code># Loading packages ------------------------------------------------------------
 require(tidyverse)
 require(rgdal)
@@ -1554,10 +1554,16 @@ require(naniar) #for all you R nerds, here is the a new package that is great fo
 require(sf)</code></pre>
 <div id="goal" class="section level2">
 <h2>Goal</h2>
-<p><span style="color: red;"><strong>Remember, the PRIMARY questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the exploratory questions</strong> </span></p>
+<p><span style="color: red;"><strong>Remember, the PRIMARY and more substantial questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the <a href="#exploratory-questions">exploratory questions</a>.</strong> </span></p>
 </div>
 <div id="exploratory-questions" class="section level2">
 <h2>Exploratory Questions</h2>
+<ul>
+<li>Are fires the most common incident? What other incidents happen within Chicago?</li>
+<li>How often is the Red Cross responding to incidents? How do these patterns change over time? Do you see evidence for a spatial pattern?</li>
+<li>How much financial assistance is given each day? How do these patterns change over time? Do you see evidence for a spatial pattern?</li>
+<li>What variables and datasets appear to be most useful or interesting among the supplemental information?</li>
+</ul>
 <p><strong>NOTE</strong>: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further.</p>
 </div>
 <div id="expected-deliverable" class="section level2">
@@ -1568,6 +1574,9 @@ require(sf)</code></pre>
 </div>
 <div id="the-data" class="section level1">
 <h1>The Data</h1>
+<p>The Red Cross of Greater Chicago/Illinois responds to disaster incidents throughout Illinois and provides assistance to those who are affected by those disasters.</p>
+<p>The dataset provided by the Red Cross has each row as an incident with the different columns as variables for that incident. The Red Cross mostly responds to fires disasters and a bulk of the disasters happening the city of Chicago, the data provided is only from Chicago.</p>
+<p>The <a href="https://www.usfa.fema.gov/data/statistics/">US Fire Administration</a> has collected data on fires from a variety of sources. While these are national estimates and do not adequately represent Chicago-specific fires, it can further our nderstanding on fire disasters. Data is given about buildings in Chicago as a possible way to look at they why/how these disasters, primarily fires, are occurring. We provide data on building codes violations, environmental factors, vacant buildings, and 311 calls data to aid with exploratory analysis.</p>
 <div id="codebook" class="section level2">
 <h2>Codebook</h2>
 <p>The code book will list each variable name with a description followed by the variable type in italics. If variable is categorical, each possible response will be listed.</p>
@@ -1607,7 +1616,7 @@ require(sf)</code></pre>
 <li><strong>adults</strong> - Number of adults in the incident (<em>Numeric</em>)</li>
 <li><strong>children</strong> - Number of children in the incident (<em>Numeric</em>)</li>
 <li><strong>families</strong> - Number of families in the incident (<em>Numeric</em>)</li>
-<li><strong>assistance</strong> - Amount of total financial assistance provided <em>Numeric</em></li>
+<li><strong>assistance</strong> - Amount of total financial assistance provided (<em>Numeric</em>)</li>
 <li><strong>dispatched</strong> - The date it is determined by a Red Cross dispatcher that a response is required (<em>Date dd/mm/yyyy</em>)</li>
 <li><strong>volunteers_verified</strong> - The date the incident is verified by a Red Cross dispatcher (<em>Date dd/mm/yyyy</em>)</li>
 <li><strong>on_scene</strong> - The time and date the volunteer response team arrives at an incident scene (<em>Date dd/mm/yyyy</em>)</li>
@@ -1626,7 +1635,7 @@ require(sf)</code></pre>
               , destfile = &quot;data_sources_WiDS.zip&quot;)
 
 # unzip the .zip file
-unzip(zipfile = &quot;data_sources_WiDS.zip&quot;, exdir=&#39;data_from_zip&#39;)
+unzip(zipfile = &quot;data_sources_WiDS.zip&quot;, exdir=&#39;data_from_zip&#39;) 
 
 
 # list all files
