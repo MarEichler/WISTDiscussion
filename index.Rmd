@@ -16,23 +16,24 @@ You will have **2.5 hours** to answer the primary question at the event.
 
 
 
-## Goal
+## Primary Question
 
 <span style="color: red;">**Remember, the PRIMARY and more substantial questions of interest will be released on 3/5 at the Data Dive. Your job before then is to simply consider the [exploratory questions](#exploratory-questions).**  </span>
 
 # The Data
 
-The Red Cross of Greater Chicago/Illinois responds to disaster incidents throughout Illinois and provides assistance to those who are affected by those disasters.
+The Red Cross of Greater Chicago/Illinois responds to disaster incidents throughout Illinois and aids those who are affected by those disasters.
 
-The dataset provided by the Red Cross has each row as an incident with the different columns as variables for that incident. The Red Cross mostly responds to fires disasters and a bulk of the disasters happening the city of Chicago, the data provided is only from Chicago. 
+In the dataset provided by the Red Cross, each row is an incident and each column is a variable related to the incidents. The Red Cross responds to primarily fires and disasters, and most of the disasters happen in the city of Chicago. The data provided is only from Chicago disasters.
 
-The [US Fire Administration](https://www.usfa.fema.gov/data/statistics/) has collected data on fires from a variety of sources. While these are national estimates and do not adequately represent Chicago-specific fires, it can further our understanding on fire disasters. Data is given about buildings in Chicago as a possible way to look at they why/how these disasters, primarily fires, are occurring. We provide data on building codes violations, environmental factors, vacant buildings, and 311 calls data to aid with exploratory analysis. 
+
+The [US Fire Administration](https://www.usfa.fema.gov/data/statistics/) has collected data on fires from around the U.S. While these are national estimates and may not adequately represent Chicago-specific fires, it can further our understanding on fire disasters. Data on buildings can also help us understand why and how these disasters occur. To aid your exploratory analysis, we have provided data on building code violations, environmental factors, vacant buildings, and 311 calls data.
 
 ## Exploratory Questions
 
 * Are fires the most common incident? What other incidents happen within Chicago? 
-* How often is the Red Cross responding to incidents? How do these patterns change over time? Do you see evidence for a spatial pattern?
-* How much financial assistance is given each day? How do these patterns change over time? Do you see evidence for a spatial pattern?
+* How often is the Red Cross responding to incidents? How do these patterns change over time? Do you see evidence for any spatial pattern?
+* How much financial assistance is given each day? How do these patterns change over time? Do you see evidence for any spatial pattern?
 * What variables and datasets appear to be most useful or interesting among the supplemental information?
 
 **NOTE**: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further. 
@@ -40,31 +41,31 @@ The [US Fire Administration](https://www.usfa.fema.gov/data/statistics/) has col
 
 ## Expected Deliverable
 
-Your team will need to create 1 slides (keep it simple) with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at [WiDS downtown](widschicago.org) on Friday, March 6!
+Your team will need to create 1 slides with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at [WiDS downtown](widschicago.org) on Friday, March 6.
 
-Please email your 1 slide with the email subject: "DATA DIVE", and a list of team members' names that will be attending WiDS: downtown to <mcwhalen@u.northwestern.edu> by 8:00 pm. 
+Please email your 1 slide with the subject: "DATA DIVE". In the body of the email list of team members' names that will be attending WiDS downtown. Send to  <mcwhalen@u.northwestern.edu> by 8:00 pm on Thursday, March 5. 
 
 
 
 ## Codebook
-The code book will list each variable name with a description followed by the variable type in italics. If variable is categorical, each possible response will be listed.
+The codebook lists each **variable name**, a description of the variable, and the *variable type*. If variable is categorical, each of the possible categorical responses is listed.
 
   * **date** - The date an incident report was created (*Date dd/mm/yyyy*)
-  * **incident_num** - Assigned per incident by DCSOps, the Red Cross incident management application. The first two numbers represent the fiscal year. The last four are sequential starting at the beginning of the fiscal year (July 1). Note that duplicate and invalid incidents as well as events to which the Red Cross deems a response is not needed (like a fire in a commercial or institutional building) have been removed from the dataset (*Numeric*)
-  * **incident_type** - The type of situation that lead to an incident (*Character*)
+  * **incident_num** - - The Red Cross incident management application, assigned per incident by DCSOps. The first two numbers represent the fiscal year. The last four are sequential starting at the beginning of the fiscal year (July 1). Note that duplicate and invalid incidents as well as events to which the Red Cross deemed a response was not needed, such as a fire in a commercial or institutional building, have been removed from the dataset. (*Numeric*)
+  * **incident_type** - The type of situation that led to an incident. (*Character*)
       + Blizzard
       + Building Collapse
       + Explosion
       + Fire
       + Flood
       + HazMat
-      + No response needed - An incident for which the local jurisdiction determines that Red Cross services are not needed
-      + Police - An incident, like a shooting or hostage situation, for which assistance is provided directly to first responders in the form of food and hydration
+      + No response needed (i.e. an incident for which the local jurisdiction determines that Red Cross services are not needed)
+      + Police  (i.e., an incident such as a shooting or hostage situation, in which assistance was provided directly to first responders in the form of food and hydration)
       + Search and rescue 
       + Storm
       + Tornado
-      + Transportation -Typically, a vehicle into a residential structure or a train derailment
-      + Vacate - An incident in which a disaster has not occurred but living conditions are deemed unsafe for residents
+      + Transportation (e.g., typically, a vehicle into a residential structure or a train derailment)
+      + Vacate  (i.e., an incident in which a disaster has not occurred but living conditions are deemed unsafe for residents)
   * **address** - Number and street address of incident (*Character*)
   * **city** - Location city of incident (*Character*)
   * **state** - Location state of incident (*Character*)
