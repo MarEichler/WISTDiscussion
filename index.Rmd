@@ -275,3 +275,7 @@ calls_311_nhood_data <- st_join(calls_311, nhood['PRI_NEIGH'], join = st_interse
 #write_csv(calls_311_nhood_data, 'calls_311.csv')
 
 ```
+
+
+## Acknowledgements
+We'd like to thank Jim McGowan of the Chicago/Northern Illinois Red Cross for their partnership, and Kisa Kowal, Arend Kuyper, Karen Smilowitz, and Reut Nocham for their technical/logistical support. 
