@@ -12,10 +12,9 @@ editor_options:
 
 Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.
 
-You will have **2.5 hours** to complete the following task. 
+You will have **2.5 hours** to answer the primary question at the event. 
 
-
-We will give you a zip file to download that has: 
+We will give you a zip file to download <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">HERE</a> that has: 
  
 * Red Cross incident data from 2015-2019 as `Redcross.csv`. The is described more [below](#the-data).
 
@@ -56,9 +55,6 @@ require(naniar) #for all you R nerds, here is the a new package that is great fo
 require(sf)
 
 ```
-
-
-## Code to download zip file and unload into your working directory:
 
 
 ## Goal
@@ -132,6 +128,30 @@ The code book will list each variable name with a description followed by the va
 
 
 # Let's Get To Work... in R!
+
+
+## Code to download, unzip and load .csvs 
+
+If you would like to download the zip file, unzip, and read in all the .csvs into R, here is code below to do that. The below code will read the .csvs into your environment.
+
+```{r eval= F}
+download.file(url = "https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip"
+              , destfile = "data_sources_WiDS.zip")
+
+# unzip the .zip file
+unzip(zipfile = "data_sources_WiDS.zip", exdir='data_from_zip')
+
+
+# list all files
+files <- list.files(path ="data_from_zip")
+
+# apply map_df() to iterate read_csv over files
+data <- map_df(paste("data_from_zip/", files, sep = "/"),
+               read_csv
+)
+```
+
+
 
 ## Basic Cleaning
 
