@@ -315,3 +315,21 @@ calls_311_nhood_data <- st_join(calls_311, nhood['PRI_NEIGH'], join = st_interse
 
 ## Acknowledgements
 We'd like to thank Jim McGowan of the Chicago/Northern Illinois Red Cross for their partnership, and Kisa Kowal, Arend Kuyper, Karen Smilowitz, and Reut Nocham for their technical/logistical support. 
+
+
+## Results from Data Dive
+
+Team 2 
+![Building Violations](data_dive_results/DDTeam2.PNG)
+
+Team 4 
+![Building Violations](data_dive_results/DDTeam4.PNG)
+
+Team 5 
+![Building Violations](data_dive_results/DDTeam5.PNG)
+
+Team 7 
+![Building Violations](data_dive_results/DDTeam7.PNG)
+
+Team 8 
+![Building Violations](data_dive_results/DDTeam8.PNG)
