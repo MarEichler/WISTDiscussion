@@ -8,6 +8,12 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
+
+```{r}
+knitr::opts_chunk$set(eval=FALSE)
+```
+
+
 # Overview
 
 Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.
