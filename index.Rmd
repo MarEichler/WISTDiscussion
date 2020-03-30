@@ -1,6 +1,6 @@
 ---
-title: "WiDS Chicago/Evanston Data Dive"
-date: March 5, 2020
+title: "Women in Statistics"
+date: 
 output:
   html_document:
     toc: true
@@ -9,333 +9,51 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r}
-knitr::opts_chunk$set(eval=FALSE)
-```
+<h1> WIST Discussion </h1> 
+<font size=3> <i> Stay connected with your statistics peers with this quarter-long book discussion! </i> </font>   
 
+This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 10:00 to 10:30 using Zoom.  
 
-# Overview
 
-Welcome to the WiDS Data Dive, in partnership with the Chicago/Northern Illinois Red Cross.
+<h1> Book Description</h1> 
+<font size = 4> <b>Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy </b> </font>  
+<font size = 4> Cathy O'Neil </font> 
 
-You will have **2.5 hours** to answer the primary question at the event. 
 
+**A former Wall Street quant sounds an alarm on the mathematical models that pervade modern life and threaten to rip apart our social fabric.** 
 
+We live in the age of the algorithm. Increasingly, the decisions that affect our lives—where we go to school, whether we get a car loan, how much we pay for health insurance—are being made not by humans, but by mathematical models. In theory, this should lead to greater fairness: Everyone is judged according to the same rules, and bias is eliminated.  
 
+But as Cathy O’Neil reveals in this urgent and necessary book, the opposite is true. The models being used today are opaque, unregulated, and uncontestable, even when they’re wrong. Most troubling, they reinforce discrimination: If a poor student can’t get a loan because a lending model deems him too risky (by virtue of his zip code), he’s then cut off from the kind of education that could pull him out of poverty, and a vicious spiral ensues. Models are propping up the lucky and punishing the downtrodden, creating a “toxic cocktail for democracy.” Welcome to the dark side of Big Data.  
 
-## Major Question
+Tracing the arc of a person’s life, O’Neil exposes the black box models that shape our future, both as individuals and as a society. These “weapons of math destruction” score teachers and students, sort résumés, grant (or deny) loans, evaluate workers, target voters, set parole, and monitor our health.
 
+O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change.
 
-Below is a table of number of incidents per neighborhood from 2015-2019 that the Chicago/Northern Illinois Red Cross responded to. There seems to be a few neighborhoods that have a lot of the incidents, those neighborhoods with over 150 incidents over the time period are shown in the simple bar chart. Our question is: **What is going on in these neighborhoods?**
+[Get at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
+[Get at thriftbooks](https://www.thriftbooks.com/w/weapons-of-math-destruction-how-big-data-increases-inequality-and-threatens-democracy_cathy-oneil/10762409/#isbn=0553418831&idiq=24418430)  
+[Get at Barnes&Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)
 
+<h1> Schedule and Link </h1> 
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-library(tidyverse)
-library(kableExtra)
-red_cross<- read_rds("data/Redcross.rds")
-top_neighborhoods<-red_cross %>% 
-  group_by(primary_neighborhood) %>% 
-  tally() %>%
-  arrange(desc(n))
-top_neighborhoods %>% 
-  filter(n > 100) %>%
-  kable() %>%
-  kable_styling()
-
-
-top_neighborhoods %>%
-  filter(n > 150) %>%
-  ggplot(aes(reorder(primary_neighborhood, -n), n)) +
-  geom_bar(stat = "identity") +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  xlab("Neighborhood") +
-  ylab("Incidents Responded to (2015-2019)") + 
-  ggtitle("Incident Counts Per Neighborhood")
-
-
-```
-
-**NOTE**: This is not a question that we or the Red Cross definitively know the answer to. Feel free to be as creative as time allows!
-
-
-## Minor Question
-With the first question looking into where these incidents are occuring, another questions the Red Cross is asking is **when these incidents are occuring?** Look at seasonality of the dataset at a monthly, weekly, and/or daily level.
-
-# The Data
-
-The Red Cross of Greater Chicago/Illinois responds to disaster incidents throughout Illinois and aids those who are affected by those disasters.
-
-In the dataset provided by the Red Cross, each row is an incident and each column is a variable related to the incidents. The Red Cross responds to primarily fires and disasters, and most of the disasters happen in the city of Chicago. The data provided is only from Chicago disasters.
-
-
-The [US Fire Administration](https://www.usfa.fema.gov/data/statistics/) has collected data on fires from around the U.S. While these are national estimates and may not adequately represent Chicago-specific fires, it can further our understanding on fire disasters. Data on buildings can also help us understand why and how these disasters occur. To aid your exploratory analysis, we have provided data on building code violations, environmental factors, vacant buildings, and 311 calls data.
-
-## Exploratory Questions
-
-* Are fires the most common incident? What other incidents happen within Chicago? 
-* How often is the Red Cross responding to incidents? How do these patterns change over time? Do you see evidence for any spatial pattern?
-* How much financial assistance is given each day? How do these patterns change over time? Do you see evidence for any spatial pattern?
-* What variables and datasets appear to be most useful or interesting among the supplemental information?
-
-**NOTE**: This is not a modeling exercise; we simply are trying to look into interesting pathways to explore further. 
-
-
-## Expected Deliverable
-
-Your team will need to create 1 slides with your best visualization or takeaway. You will get a maximum 90 seconds to present your slide at [WiDS downtown](widschicago.org) on Friday, March 6.
-
-Please email your 1 slide with the subject: "DATA DIVE". In the body of the email list of team members' names that will be attending WiDS downtown. Send to  <mcwhalen@u.northwestern.edu> by 8:00 pm on Thursday, March 5. 
-
-
-
-## Codebook
-The codebook lists each **variable name**, a description of the variable, and the *variable type*. If variable is categorical, each of the possible categorical responses is listed.
-
-  * **date** - The date an incident report was created (*Date dd/mm/yyyy*)
-  * **incident_num** - - The Red Cross incident management application, assigned per incident by DCSOps. The first two numbers represent the fiscal year. The last four are sequential starting at the beginning of the fiscal year (July 1). Note that duplicate and invalid incidents as well as events to which the Red Cross deemed a response was not needed, such as a fire in a commercial or institutional building, have been removed from the dataset. (*Numeric*)
-  * **incident_type** - The type of situation that led to an incident. (*Character*)
-      + Blizzard
-      + Building Collapse
-      + Explosion
-      + Fire
-      + Flood
-      + HazMat
-      + No response needed (i.e. an incident for which the local jurisdiction determines that Red Cross services are not needed)
-      + Police  (i.e., an incident such as a shooting or hostage situation, in which assistance was provided directly to first responders in the form of food and hydration)
-      + Search and rescue 
-      + Storm
-      + Tornado
-      + Transportation (e.g., typically, a vehicle into a residential structure or a train derailment)
-      + Vacate  (i.e., an incident in which a disaster has not occurred but living conditions are deemed unsafe for residents)
-  * **address** - Number and street address of incident (*Character*)
-  * **city** - Location city of incident (*Character*)
-  * **state** - Location state of incident (*Character*)
-  * **zip_code** - ZIP Code of where the incident occurred. (*Numeric*)
-  * **county** - The county where the incident occurred (*Character*)
-  * **latitude** - Latitude of incident (*Numeric*)
-  * **longitude** - Logitude of incident (*Numeric*)
-  * **destroyed** - Number of residential units destroyed (*Numeric*)
-  * **major** - Number of residential units suffering major damage (*Numeric*)
-  * **minor** - Number of residential units suffering minor damage (*Numeric*)
-  * **affected** - Number of residential units nominally affected (*Numeric*)
-  * **injured** - Number of people injured from the incident (*Numeric*)
-  * **hospitalized** - Number of people hospitalized from the incident (*Numeric*)
-  * **desceased** - Number of people that died from incident (*Numeric*)
-  * **adults** - Number of adults in the incident (*Numeric*)
-  * **children** - Number of children in the incident (*Numeric*)
-  * **families** - Number of families in the incident (*Numeric*)
-  * **assistance** - Amount of total financial assistance provided (*Numeric*)
-  * **dispatched** - The date it is determined by a Red Cross dispatcher that a response is required (*Date dd/mm/yyyy*)
-  * **volunteers_verified** - The  date the incident is verified by a Red Cross dispatcher (*Date dd/mm/yyyy*)
-  * **on_scene** - The time and date the volunteer response team arrives at an incident scene (*Date dd/mm/yyyy*)
-  * **off_scene** - The time and date the volunteer response team departs the incident scene (*Date dd/mm/yyyy*)
-  * **primary neighborhood** - The major neighborhood in which the incident occurred in. (*Character*)
-  * **secondary neighborhood** - The subsetted neighborhood within the primary neighborhood in which the incident occurred in. (*Character*)
-
-
-
-We will give you a zip file to **download** <a id="raw-url" href="https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip">HERE</a> that has: 
- 
-* Red Cross incident data from 2015-2019 as `Redcross.csv`. The is described more [below](#the-data).
-
-* Shapefile,`Neighborhoods_2012b.shp`, for community areas in Chicago (**NOTE**: you need ALL of the file types to stay in that `neighborhood_shapefile/` directory, not just the *.shp!)
-* `chicago_community_data.csv`: [Community Snapshot Data](https://datahub.cmap.illinois.gov/dataset/1d2dd970-f0a6-4736-96a1-3caeb431f5e4/resource/d23fc5b1-0bb5-4bcc-bf70-688201534833/download/CDSFieldDescriptions201906.pdf) by neighborhood. This has a TON of information you can use: population, demographics, and transit information!
-* `calls_311.csv`: Data from the City of Chicago Data Portal about [311 calls](https://data.cityofchicago.org/Service-Requests/311-Service-Requests-Vacant-and-Abandoned-Building/7nii-7srd ).
-* `enviro_inspection.csv ` : Data from the City of Chicago Data Portal about [environmental inspections](https://data.cityofchicago.org/Environment-Sustainable-Development/CDPH-Environmental-Inspections/i9rk-duva). 
-* `build_vio_nhood_data.csv`: Data from the City of Chicago Data Portal about [building violations](https://data.cityofchicago.org/Buildings/Building-Violations/22u3-xenr).
-* `vacant.csv`: Data from the City of Chicago Data Portal about [vacant buildings](https://data.cityofchicago.org/Buildings/Vacant-and-Abandoned-Buildings-Violations/kc9i-wq85). Note that this does not have latitude/longitude information and therefore was not joined with neighborhood names like the above datasets.
-
-**If you simply clone the [repository](https://github.com/menawhalen/WiDS_data_dive_2020) on your local machine: all of these are also included in the `data/` folder, but not the `build_vio_nhood_data.csv`, as it is extremely big.** You can use as many or as few of these as you would like, and also supplement with any additional information you can find and cite.
-
-
-# Let's Get To Work... in R!
-Here are some potential packages that might be of use in your exploratory data analysis.
-
-Below you'll also find:
-
-* R script used to clean the raw Red Cross data
-* an example [spatial mapping R script](#spatial-data) 
-* an example [joining spatial data with a .csv containing neighborhood names](#example-using-latitude-and-longitude)
-
-
-```{r required-packages, message=F, warning=F}
-# Loading packages ------------------------------------------------------------
-require(tidyverse)
-require(rgdal)
-require(maptools)
-require(rgeos)
-require(maps)
-require(mapproj)
-require(ggthemes)
-require(RCurl)
-require(lubridate)
-require(janitor)
-require(hms)
-require(kableExtra)
-require(naniar) #for all you R nerds, here is the a new package that is great for handling missingness
-require(sf)
-
-```
-
-
-## Code to download, unzip and load .csvs 
-
-If you would like to download the zip file, unzip, and read in all the .csvs into R, here is code below to do that. The below code will read the .csvs into your environment.
-
-```{r eval= F}
-download.file(url = "https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data_sources.zip"
-              , destfile = "data_sources_WiDS.zip")
-
-# unzip the .zip file
-unzip(zipfile = "data_sources_WiDS.zip", exdir='data_from_zip') 
-
-
-# list all files
-files <- list.files(path ="data_from_zip")
-
-# apply map_df() to iterate read_csv over files
-data <- map_df(paste("data_from_zip/", files, sep = "/"),
-               read_csv
-)
-```
-
-
-
-## Basic Cleaning
-
-Below is some R code for downloading already cleaned data. It has all dates and time stamps coded to be the correct type, also changed `incident_num` to an integer without a dash.
-
-```{r download, warning=FALSE, message=FALSE}
-
-red_cross<- read_csv("data/Redcross.csv")
-
-missingness_info<-red_cross %>% miss_var_summary() #displays number and percent of NAs in each column 
-```
-
-Below is the code that was used create the cleaned rds file.
-
-```{r howtoclean, warning=FALSE, message=FALSE,}
-# read in the text file for red cross from Github 
-red_cross_text<-getURL("https://raw.githubusercontent.com/menawhalen/WiDS_data_dive_2020/master/data/Redcross.csv")
-
-# puts into a csv with the first row of table being the column names, seperated by ","
-red_cross<-read.csv(text = red_cross_text, header = TRUE, sep = ",", fileEncoding = "UTF-8") %>%
-  as_tibble() %>% # puts into a tibble
-  clean_names() %>% #makes names lowercase column names
-  rename(date = x_u_feff_date) %>%
-  # puts all the dates and time stamps in the right format for R
-  mutate(date=as.Date(date, format = "%Y-%m-%d"),
-         verified=as.Date(verified, format = "%Y-%m-%d"),
-         dispatched=as.Date(dispatched, format = "%Y-%m-%d"),
-         volunteers_identified=as.Date(volunteers_identified, format = "%Y-%m-%d"),
-         on_scene=as.Date(on_scene, format = "%Y-%m-%d"),
-         off_scene=as.Date(off_scene, format = "%Y-%m-%d"),
-         incident_number=as.character(incident_number),
-         incident_number=as.integer(gsub("-", "", incident_number)),# makes incident an integer
-         primary_neighborhood = factor(tolower(primary_neighborhood)),
-         secondary_neighborhood = factor(tolower(secondary_neighborhood))) 
-
-#write_rds(red_cross, "data/Redcross.rds")
-
-```
-
-## Spatial Data 
-
-Our incident data has as primary and secondary neighborhood variable. The below example code joins Red Cross incident data with spatial data based on primary neighborhood, and makes a map of the number of incidents in 2019. 
-
-```{r spatialdata, message=FALSE, warning=FALSE, results= "hide"}
-# Illinois Zip Code Map ----------------------------------------------------
-red_cross <- read_rds("data/Redcross.rds") %>% 
-  as_tibble() %>% 
-  clean_names()
-
-# Forming Chicago Zip Map Tibble ------------------------------------------
-
-#all spatial data files should be in neighborhood_shapefile directory! You need all of them!
-il_map_dat <- readOGR(dsn="data/neighborhood_shapefiles/Neighborhoods_2012b.shp")
-il_map_dat@data <- il_map_dat@data %>% 
-  clean_names() %>% 
-  mutate(pri_neigh= str_to_lower(pri_neigh))#read in chicago neighborhood shapefile 
-
-il_map_dat@data$id <- rownames(il_map_dat@data)
-il_points <- fortify(il_map_dat, region = "pri_neigh") %>% #fortify helps us turn the map into data points in a data frame 
-  as_tibble() %>% 
-  filter(id %in% red_cross$primary_neighborhood)
+Discussion Topic | Date | Time  
+-----------------|------|------  
+Introduction, Chapter 1 | Friday, April 10th | 10:00-10:30am   
+Chapter 2 | Friday, April 17th  | 10:00-10:30am    
+Chapter 3 | Friday, April 24th  | 10:00-10:30am    
+Chapter 4 | Friday, May 1st     | 10:00-10:30am    
+Chapter 5 | Friday, May 8th     | 10:00-10:30am    
+Chapter 6 | Friday, May 15th    | 10:00-10:30am    
+Chapter 7 | Friday, May 22nd    | 10:00-10:30am    
+Chapter 8 | Friday, May 29th    | 10:00-10:30am    
+Chapter 9 | Friday, June 5th    | 10:00-10:30am    
+Chapter 10 | Friday, June 12th* | 10:00-10:30am    
+Conclusion | Friday, June 19th* | 10:00-10:30am    
   
-#creating mapping dataset 
-il_map_df <- full_join(il_points, il_map_dat@data, by=c("id"= "pri_neigh")) %>% 
-  as_tibble() 
+*Finals Week and Summer Break, dates subject to change   
 
-neighborhood_raw_count <- red_cross %>% 
-  mutate(year = year(date),
-         primary_neighborhood = as.character(primary_neighborhood)) %>% 
-  group_by(primary_neighborhood, year) %>% 
-  summarise(incident_count = n()) %>% #counts the number of incidents in each community area in each year
-  ungroup() %>% 
-  filter(year == 2019) %>% #we just will look at 2019
-  mutate(more_than_10 = case_when(incident_count <= 5 ~ "< 5",
-                                  incident_count <= 10 ~ "5-10",
-                                  TRUE ~ ">10")) #make discrete coloring scale that we don't end up using
+<font size=3> <b> 
+Zoom Link: <a href="https://northwestern.zoom.us/j/5138992104"> https://northwestern.zoom.us/j/5138992104 </a> 
+</b> </font> 
 
-
-# make the plot!
-il_map_df %>% 
-  left_join(neighborhood_raw_count, by = c("id" = "primary_neighborhood")) %>% 
-  ggplot(aes(long, lat , group = group, fill= incident_count)) +
-  scale_fill_gradient(
-    name = "Incident Count", # changes legend title
-    low = "blue",
-    high = "red",
-    space = "Lab") +
-    geom_polygon() +
-    geom_path(color = "black") +
-    coord_quickmap() +
-    theme_map() +  ggtitle('Incidents Per Chicago Neighborhood in 2019') 
-
-```
-
-
-
-
-## Example Using Latitude and Longitude
-
-
-This piece of code looks at latitude and longitude of 311 calls (original_file: `OLD_calls_311.csv`and finds out what neighborhood each call was made from. This updated version, with a `geometry` column, is saved as `calls_311.csv`. 
-
-```{r message=F, warning=F, results="hide"}
-nhood <- st_read(dsn="data/neighborhood_shapefiles/Neighborhoods_2012b.shp")
-
-calls_311 <- read_csv('data/OLD_calls_311.csv' ) %>% 
-  drop_na(longitude)
-
-calls_311 <-  st_as_sf(calls_311, coords = c("longitude", "latitude"))
-
-st_crs(calls_311) <- st_crs(nhood)
-
-calls_311_nhood_data <- st_join(calls_311, nhood['PRI_NEIGH'], join = st_intersects)
-
-#write_csv(calls_311_nhood_data, 'calls_311.csv')
-
-```
-
-
-## Acknowledgements
-We'd like to thank Jim McGowan of the Chicago/Northern Illinois Red Cross for their partnership, and Kisa Kowal, Arend Kuyper, Karen Smilowitz, and Reut Nocham for their technical/logistical support. 
-
-
-## Results from Data Dive
-
-Team 2 
-![Building Violations](data_dive_results/DDTeam2.PNG)
-
-Team 4 
-![Building Violations](data_dive_results/DDTeam4.PNG)
-
-Team 5 
-![Building Violations](data_dive_results/DDTeam5.PNG)
-
-Team 7 
-![Building Violations](data_dive_results/DDTeam7.PNG)
-
-Team 8 
-![Building Violations](data_dive_results/DDTeam8.PNG)
+<h1> "Rules" </h1> 
