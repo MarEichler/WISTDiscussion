@@ -45,10 +45,12 @@ Zoom Link: <a href="https://northwestern.zoom.us/j/5138992104"> https://northwes
 At this time individuals do not need a password or registration to participate in the video conference.  
 
 
-<h1> Book Description</h1>  
+<h1> Book </h1>  
 <img alt = '' width='30%' src="Cover-WeaponsofMathDestruction.jpg" align="right" style="margin:15px;"/>  
 <font size = 4> <b>Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy </b> </font>  
 <font size = 4> Cathy O'Neil </font> 
+
+<h2> Description from the Cover </h2> 
 
 **A former Wall Street quant sounds an alarm on the mathematical models that pervade modern life and threaten to rip apart our social fabric.** 
 
@@ -58,9 +60,12 @@ But as Cathy O’Neil reveals in this urgent and necessary book, the opposite is
 
 Tracing the arc of a person’s life, O’Neil exposes the black box models that shape our future, both as individuals and as a society. These “weapons of math destruction” score teachers and students, sort resumes, grant (or deny) loans, evaluate workers, target voters, set parole, and monitor our health.
 
-O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change.
+O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change. 
 
-[Get at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
-[Get at thriftbooks](https://www.thriftbooks.com/w/weapons-of-math-destruction-how-big-data-increases-inequality-and-threatens-democracy_cathy-oneil/10762409/#isbn=0553418831&idiq=24418430)  
-[Get at Barnes&Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)
+
+<h2> Get the Book </h2> 
+
+[Buy at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
+[Buy at thriftbooks](https://www.thriftbooks.com/w/weapons-of-math-destruction-how-big-data-increases-inequality-and-threatens-democracy_cathy-oneil/10762409/#isbn=0553418831&idiq=24418430)  
+[Buy at Barnes&Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)
 
