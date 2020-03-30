@@ -1,5 +1,5 @@
 ---
-title: "Women in Statistics"
+pagetitle: "WIST Discussion"
 date: 
 output:
   html_document:
@@ -9,30 +9,12 @@ editor_options:
   chunk_output_type: console
 ---
 
-<h1> WIST Discussion </h1> 
+<img src="WIST-withname.png" /> 
+
+<h1> Discussion </h1> 
 <font size=3> <i> Stay connected with your statistics peers with this quarter-long book discussion! </i> </font>   
 
-This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 10:00 to 10:30 using Zoom.  
-
-
-<h1> Book Description</h1> 
-<font size = 4> <b>Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy </b> </font>  
-<font size = 4> Cathy O'Neil </font> 
-
-
-**A former Wall Street quant sounds an alarm on the mathematical models that pervade modern life and threaten to rip apart our social fabric.** 
-
-We live in the age of the algorithm. Increasingly, the decisions that affect our lives—where we go to school, whether we get a car loan, how much we pay for health insurance—are being made not by humans, but by mathematical models. In theory, this should lead to greater fairness: Everyone is judged according to the same rules, and bias is eliminated.  
-
-But as Cathy O’Neil reveals in this urgent and necessary book, the opposite is true. The models being used today are opaque, unregulated, and uncontestable, even when they’re wrong. Most troubling, they reinforce discrimination: If a poor student can’t get a loan because a lending model deems him too risky (by virtue of his zip code), he’s then cut off from the kind of education that could pull him out of poverty, and a vicious spiral ensues. Models are propping up the lucky and punishing the downtrodden, creating a “toxic cocktail for democracy.” Welcome to the dark side of Big Data.  
-
-Tracing the arc of a person’s life, O’Neil exposes the black box models that shape our future, both as individuals and as a society. These “weapons of math destruction” score teachers and students, sort résumés, grant (or deny) loans, evaluate workers, target voters, set parole, and monitor our health.
-
-O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change.
-
-[Get at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
-[Get at thriftbooks](https://www.thriftbooks.com/w/weapons-of-math-destruction-how-big-data-increases-inequality-and-threatens-democracy_cathy-oneil/10762409/#isbn=0553418831&idiq=24418430)  
-[Get at Barnes&Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)
+This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 10:00 to 10:30 using Zoom.  For spring quarter 2020, WIST will be reading Weapons of Math Destruction by Cathy 0'Neil.  
 
 <h1> Schedule and Link </h1> 
 
@@ -56,4 +38,23 @@ Conclusion | Friday, June 19th* | 10:00-10:30am
 Zoom Link: <a href="https://northwestern.zoom.us/j/5138992104"> https://northwestern.zoom.us/j/5138992104 </a> 
 </b> </font> 
 
-<h1> "Rules" </h1> 
+
+<h1> Book Description</h1>  
+<img alt = '' width='30%' src="Cover-WeaponsofMathDestruction.jpg" align="right" style="margin:15px;"/>  
+<font size = 4> <b>Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy </b> </font>  
+<font size = 4> Cathy O'Neil </font> 
+
+**A former Wall Street quant sounds an alarm on the mathematical models that pervade modern life and threaten to rip apart our social fabric.** 
+
+We live in the age of the algorithm. Increasingly, the decisions that affect our lives—where we go to school, whether we get a car loan, how much we pay for health insurance—are being made not by humans, but by mathematical models. In theory, this should lead to greater fairness: Everyone is judged according to the same rules, and bias is eliminated.  
+
+But as Cathy O’Neil reveals in this urgent and necessary book, the opposite is true. The models being used today are opaque, unregulated, and uncontestable, even when they’re wrong. Most troubling, they reinforce discrimination: If a poor student can’t get a loan because a lending model deems him too risky (by virtue of his zip code), he’s then cut off from the kind of education that could pull him out of poverty, and a vicious spiral ensues. Models are propping up the lucky and punishing the downtrodden, creating a “toxic cocktail for democracy.” Welcome to the dark side of Big Data.  
+
+Tracing the arc of a person’s life, O’Neil exposes the black box models that shape our future, both as individuals and as a society. These “weapons of math destruction” score teachers and students, sort résumés, grant (or deny) loans, evaluate workers, target voters, set parole, and monitor our health.
+
+O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change.
+
+[Get at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
+[Get at thriftbooks](https://www.thriftbooks.com/w/weapons-of-math-destruction-how-big-data-increases-inequality-and-threatens-democracy_cathy-oneil/10762409/#isbn=0553418831&idiq=24418430)  
+[Get at Barnes&Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)
+
