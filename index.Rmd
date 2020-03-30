@@ -16,7 +16,9 @@ editor_options:
 
 This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 10:00 to 10:30 using Zoom.  For spring quarter 2020, WIST will be reading Weapons of Math Destruction by Cathy 0'Neil.  
 
-<h1> Schedule and Link </h1> 
+<h1> Meeting Information </h1> 
+
+<h2> Schedule </h2> 
 
 Discussion Topic | Date | Time  
 -----------------|------|------  
@@ -34,9 +36,13 @@ Conclusion | Friday, June 19th* | 10:00-10:30am
   
 *Finals Week and Summer Break, dates subject to change   
 
+
+<h2> Link </h2> 
 <font size=3> <b> 
 Zoom Link: <a href="https://northwestern.zoom.us/j/5138992104"> https://northwestern.zoom.us/j/5138992104 </a> 
-</b> </font> 
+</b> </font>  
+
+At this time individuals do not need a password or registration to participate in the video conference.  
 
 
 <h1> Book Description</h1>  
@@ -50,7 +56,7 @@ We live in the age of the algorithm. Increasingly, the decisions that affect our
 
 But as Cathy O’Neil reveals in this urgent and necessary book, the opposite is true. The models being used today are opaque, unregulated, and uncontestable, even when they’re wrong. Most troubling, they reinforce discrimination: If a poor student can’t get a loan because a lending model deems him too risky (by virtue of his zip code), he’s then cut off from the kind of education that could pull him out of poverty, and a vicious spiral ensues. Models are propping up the lucky and punishing the downtrodden, creating a “toxic cocktail for democracy.” Welcome to the dark side of Big Data.  
 
-Tracing the arc of a person’s life, O’Neil exposes the black box models that shape our future, both as individuals and as a society. These “weapons of math destruction” score teachers and students, sort résumés, grant (or deny) loans, evaluate workers, target voters, set parole, and monitor our health.
+Tracing the arc of a person’s life, O’Neil exposes the black box models that shape our future, both as individuals and as a society. These “weapons of math destruction” score teachers and students, sort resumes, grant (or deny) loans, evaluate workers, target voters, set parole, and monitor our health.
 
 O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change.
 
