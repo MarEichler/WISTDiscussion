@@ -14,27 +14,27 @@ editor_options:
 <h1> Discussion </h1> 
 <font size=3> <i> Stay connected with your statistics peers with this quarter-long book discussion! </i> </font>   
 
-This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 10:00 to 10:30 using Zoom.  For spring quarter 2020, WIST will be reading Weapons of Math Destruction by Cathy 0'Neil.  
+This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 1:00pm CT using Zoom.  For spring quarter 2020, WIST will be reading Weapons of Math Destruction by Cathy 0'Neil.  
 
 <h1> Meeting Information </h1> 
 
 <h2> Schedule </h2> 
 
 Discussion Topic | Date | Time  
------------------|------|------  
-Introduction, Chapter 1 | Friday, April 10th | 10:00-10:30am   
-Chapter 2 | Friday, April 17th  | 10:00-10:30am    
-Chapter 3 | Friday, April 24th  | 10:00-10:30am    
-Chapter 4 | Friday, May 1st     | 10:00-10:30am    
-Chapter 5 | Friday, May 8th     | 10:00-10:30am    
-Chapter 6 | Friday, May 15th    | 10:00-10:30am    
-Chapter 7 | Friday, May 22nd    | 10:00-10:30am    
-Chapter 8 | Friday, May 29th    | 10:00-10:30am    
-Chapter 9 | Friday, June 5th    | 10:00-10:30am    
-Chapter 10 | Friday, June 12th* | 10:00-10:30am    
-Conclusion | Friday, June 19th* | 10:00-10:30am    
+----|---|-------  
+Introduction and Chapter 1 | Friday, April 10th | 11am PT / 12pm MT / 1pm CT / 2pm ET   
+Chapter 2 | Friday, April 17th  | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 3 | Friday, April 24th  | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 4 | Friday, May 1st     | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 5 | Friday, May 8th     | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 6 | Friday, May 15th    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 7 | Friday, May 22nd    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 8 | Friday, May 29th    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 9 | Friday, June 5th    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Chapter 10 | Friday, June 12th* | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Conclusion | Friday, June 19th* | 11am PT / 12pm MT / 1pm CT / 2pm ET    
   
-*Finals Week and Summer Break, dates subject to change   
+*Finals Week and Summer Break, dates subject to change  
 
 
 <h2> Link </h2> 
@@ -67,5 +67,6 @@ O’Neil calls on modelers to take more responsibility for their algorithms and 
 
 [Buy at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
 [Buy at thriftbooks](https://www.thriftbooks.com/w/weapons-of-math-destruction-how-big-data-increases-inequality-and-threatens-democracy_cathy-oneil/10762409/#isbn=0553418831&idiq=24418430)  
-[Buy at Barnes&Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)
+[Buy at Barnes & Nobel](https://www.barnesandnoble.com/w/weapons-of-math-destruction-cathy-oneil/1123130166?ean=9780553418835)  
+[Borrow from the Chicago Library](https://chipublib.bibliocommons.com/item/show/1786498126)
 
