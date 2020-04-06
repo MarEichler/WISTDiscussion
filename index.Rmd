@@ -14,7 +14,7 @@ editor_options:
 <h1> Discussion </h1> 
 <font size=3> <i> Stay connected with your statistics peers with this quarter-long book discussion! </i> </font>   
 
-This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's from 1:00pm CT using Zoom.  For spring quarter 2020, WIST will be reading Weapons of Math Destruction by Cathy O'Neil.  
+This quarter WIST will be sponsoring a quarter-long book discussion.  Participants will read one or two chapters each week and then have a discussion.  Discussion sections will take place once a week on Friday's at 1:00pm CT using Zoom.  For spring quarter 2020, WIST will be reading Weapons of Math Destruction by Cathy O'Neil.  
 
 <h1> Meeting Information </h1> 
 
@@ -22,17 +22,17 @@ This quarter WIST will be sponsoring a quarter-long book discussion.  Participan
 
 Discussion Topic | Date | Time  
 ----|---|-------  
-Introduction and Chapter 1 | Friday, April 10th | 11am PT / 12pm MT / 1pm CT / 2pm ET   
-Chapter 2 | Friday, April 17th  | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 3 | Friday, April 24th  | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 4 | Friday, May 1st     | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 5 | Friday, May 8th     | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 6 | Friday, May 15th    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 7 | Friday, May 22nd    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 8 | Friday, May 29th    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 9 | Friday, June 5th    | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Chapter 10 | Friday, June 12th* | 11am PT / 12pm MT / 1pm CT / 2pm ET    
-Conclusion | Friday, June 19th* | 11am PT / 12pm MT / 1pm CT / 2pm ET    
+Introduction and Chapter 1 | Friday, April 10th | 1:00 - 1:30pm CT   
+Chapter 2 | Friday, April 17th  | 1:00 - 1:30pm CT     
+Chapter 3 | Friday, April 24th  | 1:00 - 1:30pm CT     
+Chapter 4 | Friday, May 1st     | 1:00 - 1:30pm CT     
+Chapter 5 | Friday, May 8th     | 1:00 - 1:30pm CT     
+Chapter 6 | Friday, May 15th    | 1:00 - 1:30pm CT     
+Chapter 7 | Friday, May 22nd    | 1:00 - 1:30pm CT     
+Chapter 8 | Friday, May 29th    | 1:00 - 1:30pm CT     
+Chapter 9 | Friday, June 5th    | 1:00 - 1:30pm CT    
+Chapter 10 | Friday, June 12th* | 1:00 - 1:30pm CT     
+Conclusion | Friday, June 19th* | 1:00 - 1:30pm CT     
   
 *Finals Week and Summer Break, dates subject to change  
 
