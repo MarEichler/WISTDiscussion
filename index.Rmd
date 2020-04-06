@@ -40,7 +40,7 @@ Conclusion | Friday, June 19th* | 1:00 - 1:30pm CT
 <h2> Link </h2> 
 The Zoom link for the meeting will be emailed out to the WIST listserv the day before a given discussion.  
 
-Please email Martha, mareichler@u.northwestern.edu, if you have questions or need more information. 
+Please email Martha, <a href="mailto:mareichler@u.northwestern.edu"> mareichler@u.northwestern.edu</a>, if you have questions or need more information. 
 
 
 <h1> Book </h1>  
