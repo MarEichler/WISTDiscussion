@@ -8,7 +8,6 @@ output:
 editor_options: 
   chunk_output_type: console
 ---
-
 <img src="WIST-withname.png" /> 
 
 <h1> Discussion </h1> 
@@ -63,7 +62,6 @@ Tracing the arc of a person’s life, O’Neil exposes the black box models that
 
 O’Neil calls on modelers to take more responsibility for their algorithms and on policy makers to regulate their use. But in the end, it’s up to us to become more savvy about the models that govern our lives. This important book empowers us to ask the tough questions, uncover the truth, and demand change. 
 
-
 <h2> Get the Book </h2> 
 
 [Buy at Amazon](https://www.amazon.com/Weapons-Math-Destruction-Increases-Inequality/dp/0553418815)  
@@ -74,7 +72,7 @@ O’Neil calls on modelers to take more responsibility for their algorithms and 
 
 <h1> Discussion Questions </h1>  
 If you have other questions or topics you would like to discuss for a given secession, please email Abby Smith, <a href="mailto:als1@u.northwestern.edu"> als1@u.northwestern.edu</a>, by the Wednesday before the discussion.  
-<h2> Introduction and Chapter 1 - April 10, 2020 </h2>  
+<h2> Introduction and Chapter 1</h2>  
 1. O’Neil defines WMD’s by opacity, scale, and damage.   Do you think these are appropriate qualifications? Should there be any others? 
 2. O'Neil writes "Like gods, these mathematical models were opaque, their workings invisible to all but the highest priest in their domain: mathematicians and computer scientists."[^ONeil3] Do you think the comparison to religion is appropriate?  How as the role of mathematicians and computer scientists in culture and society changed over the past decade?   
 3.  Is there a way to change the incentive structure such that companies want to use data fairly?  WMDs survive because they offer a black-box scapegoat tool for boosting profits. The profits are a visible, measurable incentive.   So how do we advertise and measure the advantages of frequently-tested, feedback-driven, fair algorithms?  How will this affect statistical consulting firms (like Mathematica in O'Neil's example)? 
