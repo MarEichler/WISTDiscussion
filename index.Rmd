@@ -90,7 +90,7 @@ If you have other questions or topics you would like to discuss for a given sece
 <h2> Chapter 2 </h2>
 <ol>
   <li>Assumptions are essential to building a good model.  O’Neil says that finance models she saw were based on the past on the assumption that patterns will repeat.  Other common assumptions in finance are that the market is general efficient and that investors act rationally.  Discuss the strengths and weaknesses of these assumptions.  
-Learn more about the rational/irrational investors assumption in this Nova episode: [Mind over Money](https://www.pbs.org/video/nova-mind-over-money/).^[This episode is available with [PBS Passport](https://video.wttw.com/passport/learn-more/), available to PBS donors in the U.S. that contribute \$60 annually or more or \$5 monthly.]  
+Learn more about the rational investors assumption in this Nova episode: [Mind over Money](https://www.pbs.org/video/nova-mind-over-money/).^[This episode is available with [PBS Passport](https://video.wttw.com/passport/learn-more/), available to PBS donors in the U.S. that contribute \$60 annually or more or \$5 monthly.]  
   </li>
   <li>After going through the 2008 financial recession, O’Neil says “I was forced to confront the ugly truth: people had deliberately wielded formulas to impress rather than clarify” (Ch 2, p 44).    Do you think this is true in industry? What about in academia? 
   </li>
