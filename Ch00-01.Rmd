@@ -1,0 +1,10 @@
+---
+output:
+  html_document:
+---
+
+
+<h2> Introduction and Chapter 1</h2>  
+1. O’Neil defines WMD’s by opacity, scale, and damage.   Do you think these are appropriate qualifications? Should there be any others? 
+2. O'Neil writes "Like gods, these mathematical models were opaque, their workings invisible to all but the highest priest in their domain: mathematicians and computer scientists" (Introduction, p 3). Do you think the comparison to religion is appropriate?  How as the role of mathematicians and computer scientists in culture and society changed over the past decade?   
+3.  Is there a way to change the incentive structure such that companies want to use data fairly?  WMDs survive because they offer a black-box scapegoat tool for boosting profits. The profits are a visible, measurable incentive.   So how do we advertise and measure the advantages of frequently-tested, feedback-driven, fair algorithms?  How will this affect statistical consulting firms (like Mathematica in O'Neil's example)? 
