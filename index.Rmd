@@ -17,6 +17,7 @@ This quarter WIST will be sponsoring a quarter-long book discussion.  Participan
 
 <h1> Meeting Information </h1> 
 
+
 <h2> Schedule </h2> 
 
 Discussion Topic | Date | Time  
@@ -77,6 +78,8 @@ O’Neil calls on modelers to take more responsibility for their algorithms and 
 
 <h1> Discussion Questions </h1>  
 If you have other questions or topics you would like to discuss for a given secession, please email Abby Smith, <a href="mailto:als1@u.northwestern.edu"> als1@u.northwestern.edu</a>, by the Wednesday before the discussion.  
+
+
 <h2> Introduction and Chapter 1</h2>  
 1. O’Neil defines WMD’s by opacity, scale, and damage.   Do you think these are appropriate qualifications? Should there be any others? 
 2. O'Neil writes "Like gods, these mathematical models were opaque, their workings invisible to all but the highest priest in their domain: mathematicians and computer scientists."[^ONeil3] Do you think the comparison to religion is appropriate?  How as the role of mathematicians and computer scientists in culture and society changed over the past decade?   
@@ -84,6 +87,18 @@ If you have other questions or topics you would like to discuss for a given sece
 
 [^ONeil3]: O’Neil, Cathy. Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy. Penguin Books, 2018. (Introduction, Hardcover: p 3) 
 
+<h2> Chapter 2 </h2>
+<ol>
+  <li>Assumptions are essential to building a good model.  O’Neil says that finance models she saw were based on the past on the assumption that patterns will repeat.  Other common assumptions in finance are that the market is general efficient and that investors act rationally.  Discuss the strengths and weaknesses of these assumptions.  
+Learn more about the rational/irrational investors assumption in this Nova episode: [Mind over Money](https://www.pbs.org/video/nova-mind-over-money/).^[This episode is available on PBS Passport]  
+  </li>
+  <li>After going through the 2008 financial recession, O’Neil says “I was forced to confront the ugly truth: people had deliberately wielded formulas to impress rather than clarify.” [^ONeil44]   Do you think this is true in industry? What about in academia? 
+  </li>
+  <li>O’Neil points out that jobs in finance and Big Tech recruit from top schools and pay employees large salaries.  “This leads to the fallacious conclusion that whatever they’re doing to bring in more money is good.  It “adds value.” [^ONeil47] Otherwise, why would the market reward it?” She refers to this as “economic Darwinism.” Does society appropriately value statistical work? 
 
+  </li>
+</ol>
 
+[^ONeil44]: O’Neil, Cathy. Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy. Penguin Books, 2018. (Chapter 2, Hardcover: p 44) 
+[^ONeil47]: O’Neil, Cathy. Weapons of Math Destruction: How Big Data Increases Inequality and Threatens Democracy. Penguin Books, 2018. (Chapter 2, Hardcover: p 47) 
 
