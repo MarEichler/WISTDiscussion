@@ -1,0 +1,14 @@
+---
+output:
+  html_document:
+---
+
+
+## Chapter 3 
+1. A huge issue with the US Today Rankings WMD is the use of proxies, especially those relating to money. Are their “better” proxies that could be used in a quantifiable way? 
+1. Given the new climate (bad economy, increased inequity), how do you think schools will respond to demands for affordability and diversity at their school?  How are students responding to the pressure to perform in a quantifiable way?  
+1. How do we encourage colleges to keep programs - Liberal arts, teaching, social work, division three sports – that are valuable but not quantitatively valuable in high salaries or large donations?
+1. O’Neil writes that “All of them, from the rich to the working class, are simply being trained to fit into an enormous machine – to satisfy a WMD” (Ch 3, p 65).  How can why resist being put into WMD’s? Is it possible on an individual level? 
+
+
+
