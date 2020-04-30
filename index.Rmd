@@ -88,3 +88,5 @@ If you have other questions or topics you would like to discuss for a given sece
 ```{r child="Ch03.Rmd"}
 ```
 
+```{r child="Ch04.Rmd"}
+```
