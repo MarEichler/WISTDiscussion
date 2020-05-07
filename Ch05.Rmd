@@ -1,0 +1,15 @@
+---
+output:
+  html_document:
+---
+
+
+## Chapter 5 
+1. O’Neil talks about PredPol, a crime prediction software, and even though the founder stressed that “the model is blind to race and ethnicity” (Ch2, p 86), it’s use focused policing efforts on poor people of color.  Often, we want to encourage people and organizations to take a data-based approach to policies, but sometimes taking a ‘data-based’ approach can create a WMD.  How do we inform the public about what is and is not appropriate when it comes to creating models? How do we encourage using data as a resource while also having valid quality checks for negative feedback loops? 
+1. Discuss the trade-off between fairness and efficacy/efficiency.  
+Discuss the trade-off between safety and privacy.  
+
+
+
+
+
