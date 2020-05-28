@@ -28,11 +28,11 @@ Chapter 3 | Friday, April 24th  | 1:00 - 1:30pm CT
 Chapter 4 | Friday, May 1st     | 1:00 - 1:30pm CT     
 Chapter 5 | Friday, May 8th     | 1:00 - 1:30pm CT     
 Chapter 6 | Friday, May 15th    | 1:00 - 1:30pm CT     
-Chapter 7 | Friday, May 22nd    | 1:00 - 1:30pm CT     
-Chapter 8 | Friday, May 29th    | 1:00 - 1:30pm CT     
-Chapter 9 | Friday, June 5th    | 1:00 - 1:30pm CT    
-Chapter 10 | Friday, June 12th[^final] | 1:00 - 1:30pm CT   
-Conclusion | Friday, June 19th[^break]  | 1:00 - 1:30pm CT     
+Chapter 7 | Friday, May 29th    | 1:00 - 1:30pm CT     
+Chapter 8 | Friday, June 5th    | 1:00 - 1:30pm CT     
+Chapter 9 | Friday, June 12th[^final]    | 1:00 - 1:30pm CT    
+Chapter 10 | Friday, June 19th[^break] | 1:00 - 1:30pm CT   
+Conclusion | Friday, June 26th[^break]  | 1:00 - 1:30pm CT     
   
 [^final]: Finals week, date and time subject to change
 [^break]: Summer break, date and time subject to change
