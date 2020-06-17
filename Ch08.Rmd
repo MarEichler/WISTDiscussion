@@ -1,0 +1,17 @@
+---
+output:
+  html_document:
+---
+
+
+## Chapter 8
+
+1. When people are the product rather than the consumer, there is little incentive for them to fix errors (like on credit reports).  How can we change the situation so they are incentivized to correct errors?  Does the solution require new laws or regulations? What about putting more funding into research regarding record linkage to ensure greater accuracy? 
+1. In Chapter 4, O’Neil talks about how many online services take your data and use it for advertising purposes.  In this chapter, she discusses on this data is also used for e-scores.  With the knowledge that your data is not only being used for advertising but also e-scores that could have a greater impact of your life do you still feel comfortable using “free services” where your data is the payment? If not, are you willing to pay for these services instead?  
+
+
+
+
+
+
+

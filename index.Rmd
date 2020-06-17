@@ -98,3 +98,6 @@ If you have other questions or topics you would like to discuss for a given sece
 
 ```{r child="Ch07.Rmd"}
 ```
+
+```{r child="Ch08.Rmd"}
+```
