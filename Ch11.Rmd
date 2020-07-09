@@ -1,0 +1,13 @@
+---
+output:
+  html_document:
+---
+
+
+## Conclusion
+
+1. Did you learn anything new while reading the book?  What was your reaction to this new information?
+1. When someone says ‘Weapons of Math Destruction’ what is the first thing that comes to your mind? 
+1. Are there any actions you have taken or will take in response to what you have learned? 
+
+Thank you so much for everyone who has participated in the book club!
